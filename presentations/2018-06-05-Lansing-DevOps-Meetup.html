@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="../res/images/azure-functions-logo-sm.png">
+
+    <title>Azure Functions - DevOps Meetup</title>
+
+    <link rel="stylesheet" href="../res/css/reveal.css">
+    <link rel="stylesheet" href="../res/css/theme/night.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../res/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../res/css/print/pdf.css' : '../res/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>Azure Functions:</h2>
+                <h3>Serverless development concepts</h3>
+                <p style="text-align: right;">Lansing DevOps Meetup
+                    <br> June 5th, 2018</p>
+            </section>
+            <section>
+                <h3 style="text-align: left;">Brendon Thiede</h3>
+                <ul>
+                    <li>DevOps Engineer at the Michigan Supreme Court</li>
+                    <li>Focused on Automation</li>
+                    <li>Linux and Java for the last decade</li>
+                </ul>
+            </section>
+            <section>
+                <img src="../res/images/annoyingwindows.gif" alt="Overload">
+                <p>Now I am assimilated...</p>
+            </section>
+            <section>
+                <h2>Topics</h2>
+                <ul>
+                    <li>Azure ARM Template</li>
+                    <li>Runtime/Framework version compatibility</li>
+                    <li>Build definition YAML</li>
+                    <li>Function annotations</li>
+                    <li>Bindings</li>
+                    <li>Dependency Injection</li>
+                    <li>Testing</li>
+                    <li>Tracing</li>
+                    <li>Demo</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Function Infrastructure</h2>
+                <ul>
+                    <li>App Service Plan (Consumption or Dedicated)</li>
+                    <li>App Service (Function type)
+                        <ul>
+                            <li>Application Settings (Environment Variables)</li>
+                        </ul>
+                    </li>
+                    <li>Storage Account</li>
+                    <li>Application Insights (Optional)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Function Runtime</h2>
+                <ul>
+                    <li>1.x - Fully Supported</li>
+                    <li>2.x - Beta</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Language</h2>
+                <ul>
+                    <li>C# (Precompiled class library or script)
+                        <ul>
+                            <li>.NET Framework 4.6</li>
+                            <li>.NET Standard</li>
+                        </ul>
+                    </li>
+                    <li>JavaScript</li>
+                    <li>F#</li>
+                </ul>
+                <p style="text-align: right">
+                    <small>More at:
+                        <a href="https://docs.microsoft.com/en-us/azure/azure-functions/supported-languages">https://docs.microsoft.com/en-us/azure/azure-functions/supported-languages</a>
+                    </small>
+                </p>
+            </section>
+            <section>
+                <h2>My Secret Sauce</h2>
+                <ul>
+                    <li>.NET Standard 2.0</li>
+                    <li>Precompiled</li>
+                    <li>2.x (Beta) Function Runtime</li>
+                    <li>Consumption Plan</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script src="../res/lib/js/head.min.js"></script>
+    <script src="../res/js/reveal.js"></script>
+
+    <script>
+        Reveal.initialize({
+            dependencies: [
+                { src: '../res/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+            ],
+            history: true
+        });
+    </script>
+</body>
+
+</html>
