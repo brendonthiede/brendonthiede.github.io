@@ -5,22 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="icon" type="image/png" href="../res/images/azure-functions-logo-sm.png">
+    <link rel="icon" type="image/png" href="images/azure-functions-logo-sm.png">
 
     <title>Azure Functions - DevOps Meetup</title>
 
-    <link rel="stylesheet" href="../res/css/reveal.css">
-    <link rel="stylesheet" href="../res/css/theme/night.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css">
 
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="../res/lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
     <!-- Printing and PDF exports -->
     <script>
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../res/css/print/pdf.css' : '../res/css/print/paper.css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
@@ -43,7 +43,7 @@
                 </ul>
             </section>
             <section>
-                <img src="../res/images/annoyingwindows.gif" alt="Overload">
+                <img src="images/annoyingwindows.gif" alt="Overload">
                 <p>Now I am assimilated...</p>
             </section>
             <section>
@@ -51,12 +51,10 @@
                 <ul>
                     <li>Azure ARM Template</li>
                     <li>Runtime/Framework version compatibility</li>
-                    <li>Build definition YAML</li>
+                    <li>Build definition/Deployment</li>
                     <li>Function annotations</li>
                     <li>Bindings</li>
                     <li>Dependency Injection</li>
-                    <li>Testing</li>
-                    <li>Tracing</li>
                     <li>Demo</li>
                 </ul>
             </section>
@@ -107,16 +105,114 @@
                     <li>Consumption Plan</li>
                 </ul>
             </section>
+            <section>
+                <h2>Build Process</h2>
+                <ul>
+                    <li>Validate ARM template</li>
+                    <li>Publish ARM template</li>
+                    <li><code>dotnet test</code></li>
+                    <li><code>dotnet publish</code></li>
+                    <li>Publish artifact</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Deployment Process</h2>
+                <ul>
+                    <li><code>New-AzureRmResourceGroupDeployment ...</code></li>
+                    <li><code>az functionapp deployment source config-zip ...</code></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Function Annotations</h2>
+                <h3>Specify function name:</h3>
+                <pre><code>
+[FunctionName("DevHealthCheckScheduler")]
+                </code></pre>
+                <h3>Disable function:</h3>
+                <pre><code>
+[Disable("DISABLE_SCHEDULERS")]
+                </code></pre>
+            </section>
+            <section>
+                <h3>Pro</h3>
+                Very flexible structure
+                <h3>Con</h3>
+                Magic strings with no* IDE support
+            </section>
+            <section>
+                <h3>Bindings</h3>
+                <pre><code>
+[FunctionName("DevHealthCheckScheduler")]
+[Disable("DISABLE_SCHEDULERS")]
+public static void Run(
+    [TimerTrigger("%DevHealthCheckSchedulerCronExpression%")] TimerInfo myTimer,
+    [OrchestrationClient] DurableOrchestrationClient starter)
+{
+    starter.StartNewAsync("Orchestrators_HealthCheckMasterOrchestrator", "dev");
+}
+                </code></pre>
+            </section>
+            <section>
+                <h3>Binding Types</h3>
+                <ul>
+                    <li>Timer</li>
+                    <li>HTTP</li>
+                    <li>Storage account<ul><li>Queue</li><li>Table</li><li>Blob</li></ul></li>
+                    <li>ServiceBus</li>
+                    <li>Cosmos DB</li>
+                    <li>...</li>
+                    <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings">https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings</a>
+                </ul>
+            </section>
+            <section>
+                <h3>Dependency Injection</h3>
+<pre><code>
+[FunctionName("Activities_HealthChecker")]
+public static AppEnvStatus GetHealthCheckStatus(
+    [ActivityTrigger] HealthCheckEndpoint healthCheckEndpoint,
+    [Table("AppEnvStatuses")] CloudTable appEnvStatuses)
+{
+    using (HttpClient httpClient = new HttpClient())
+    {
+        AppEnvStatus appEnvStatus = SlackBotUtils.RetrieveAppEnvStatus(healthCheckEndpoint, appEnvStatuses);
+        appEnvStatus.LatestStatus = AppEnvStatus.FAILURE;
+        appEnvStatus.LatestStatusTimeStamp = DateTime.Now;
+
+        RequestHealthCheckEndpoint(healthCheckEndpoint, appEnvStatuses, httpClient, appEnvStatus);
+
+        return appEnvStatus;
+    }
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Function Chaining</h3>
+                <ul>
+                    <li>Output binding -> Function trigger</li>
+                    <li>Durable Functions</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Cost Comparison</h3>
+                <ul>
+                    <li>Manual queue based chaining: $0.06/day, $1.90/month</li>
+                    <li>Durable Function orchestration: $0.18/day, $5.47/month</li>
+                    <li>Storage I/O ~ 90% of cost</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Demo</h2>
+            </section>
         </div>
     </div>
 
-    <script src="../res/lib/js/head.min.js"></script>
-    <script src="../res/js/reveal.js"></script>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
 
     <script>
         Reveal.initialize({
             dependencies: [
-                { src: '../res/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
             ],
             history: true
         });
