@@ -32,8 +32,6 @@ navigation:
    url: /presentations
  - title: About
    url: /about
- - title: Contact
-   url: /contact
 
 # Build settings
 markdown: kramdown
