@@ -14,7 +14,7 @@ Looking back at my old projects and trying out some simplifications, I came up w
 
 To add Puppeteer to your project you just need to run the following from your project root:
 
-{% highlight powershell %}
+{% highlight bash %}
 npm install --save-dev puppeteer
 {% endhighlight %}
 
@@ -26,7 +26,13 @@ In order to have Karma use ChromeHeadless by default and to use the Chromium bin
 process.env.CHROME_BIN = require('puppeteer').executablePath()
 {% endhighlight %}
 
-This will take care of the Chromium binary. Now to change the default browser for running tests, change the setting for `browsers` to `['ChromeHeadless']`
+This will take care of the Chromium binary. Now to change the default browser for running tests. This is technically optional, as you can pass the `--browsers` argument to the command line, such as:
+
+{% highlight bash %}
+ng test --browsers=ChromeHeadless --watch=false
+{% endhighlight %}
+
+But one thing of note is that in order for me to get things running on Linux, I ended up using the `--no-sandbox` flag for ChromeHeadless. To make this easy, I added a custom launcher to the config named `ChromeHeadlessNoSandbox`, which is just `ChromeHeadless` with the `--no-sandbox` flag. Then I changed the setting for `browsers` to `['ChromeHeadlessNoSandbox']`
 
 For me, making the changes to `karma.conf.js` ended up with the following:
 
@@ -76,7 +82,7 @@ module.exports = function (config) {
 
 With the changes made to the project, now running the tests as part of a CI pipeline are as easy as this:
 
-{% highlight powershell %}
+{% highlight bash %}
 npm install
 ng test --watch=false
 {% endhighlight %}
@@ -89,10 +95,16 @@ To give the most possible flexibility, this solution needs to be able to run on 
 curl –silent –location https://rpm.nodesource.com/setup_9.x | sudo bash
 sudo yum remove -y nodejs npm
 sudo yum install -y nodejs
-# Found these dependencies looking at https://github.com/GoogleChrome/puppeteer/issues/391#issuecomment-325420271
-sudo yum install pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 ipa-gothic-fonts xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-utils xorg-x11-fonts-cyrillic xorg-x11-fonts-Type1 xorg-x11-fonts-misc -y
+sudo yum install pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 \
+  libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 \
+  cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 \
+  alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 ipa-gothic-fonts \
+  xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-utils \
+  xorg-x11-fonts-cyrillic xorg-x11-fonts-Type1 xorg-x11-fonts-misc -y
 npm i -g @angular/cli
 {% endhighlight %}
+
+**Note:** The big list of dependencies that I installed were related to getting an error about `error while loading shared libraries: libx11.so.6: cannot open shared object file: no such file or directory` when Chromium tried to launch. I found an issue comment that pointed me in this direction here: https://github.com/GoogleChrome/puppeteer/issues/391#issuecomment-325420271
 
 Taking it a bit further I started a dummy project and configured it for Puppeteer:
 
