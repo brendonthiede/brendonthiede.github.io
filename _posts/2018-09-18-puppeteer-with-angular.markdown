@@ -60,7 +60,13 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false
   });
 };
@@ -102,8 +108,6 @@ if [ $(cat src/karma.conf.js | grep 'ChromeHeadlessNoSandbox' | wc -l) == 0 ]; t
   sed -i -e 's/browsers:.*\[.*\],/browsers: ['\''ChromeHeadlessNoSandbox'\''], customLaunchers: { ChromeHeadlessNoSandbox: { base: '\''ChromeHeadless'\'', flags: ['\''--no-sandbox'\''] } },/g' $CONF
 fi
 {% endhighlight %}
-
-Note that I had to add some extra config to disable sandboxing, which will work on Windows as well. I just couldn't get the sandbox set up in the amount of time I allowed myself to play with this.
 
 Now I can run the tests on Linux:
 
