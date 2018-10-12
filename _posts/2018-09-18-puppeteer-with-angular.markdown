@@ -127,6 +127,83 @@ Now I can run the tests on Linux:
 ng test --watch=false
 {% endhighlight %}
 
+## Protractor - Headless
+
+I had originally forgotten to modify the `protractor.conf.js` file.  Here is what it takes to get protractor running via Puppeteer, with a default config that runs in headless mode.
+
+Set `CHROME_BIN`:
+
+```javascript
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+```
+
+And set `chromeOptions` to use `CHROME_BIN` and pass required args:
+
+```javascript
+  capabilities: {
+    'browserName': 'chrome',
+    chromeOptions: {
+      binary: process.env.CHROME_BIN,
+      args: ['--headless', '--disable-gpu', '--window-size=800,600', '--no-sandbox']
+    }
+  }
+```
+
+My final `protractor.conf.js` looked like this:
+
+```javascript
+// Protractor configuration file, see link for more information
+// https://github.com/angular/protractor/blob/master/lib/config.ts
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+const { SpecReporter } = require('jasmine-spec-reporter');
+
+exports.config = {
+  allScriptsTimeout: 11000,
+  specs: [
+    './e2e/**/*.e2e-spec.ts'
+  ],
+  capabilities: {
+    'browserName': 'chrome',
+    chromeOptions: {
+      binary: process.env.CHROME_BIN,
+      args: ['--headless', '--disable-gpu', '--window-size=800,600', '--no-sandbox']
+    }
+  },
+  directConnect: true,
+  baseUrl: 'http://localhost:4200/',
+  framework: 'jasmine',
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000,
+    print: function () { }
+  },
+  onPrepare () {
+    require('ts-node').register({
+      project: 'e2e/tsconfig.e2e.json'
+    });
+    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+  }
+};
+```
+
+## Protractor - with UI
+
+There may come times that you want to watch the Protractor tests run. For that you just need to change the args for the `chromeOptions`, which I did by creating a derived "UI" config (`protractor.ui.conf.js`) that can be optionally specified as the config to use. Here is what the file looked like:
+
+```javascript
+var config = exports.config = require('./protractor.conf.js').config;
+
+config.capabilities.chromeOptions.args = ['--window-size=800,600', '--no-sandbox'];
+```
+
+To use the optional config you can pass in the config parameter to `ng e2e`:
+
+```powershell
+ng e2e --protractor-config=./e2e/protractor.ui.conf.js
+# or
+npm run e2e -- --protractor-config=./e2e/protractor.ui.conf.js
+```
+
 ## Conclusion
 
 Using Puppeteer in your CI pipeline will make your builds more reliable, and it's very easy to setup. The only downside as I see it is that the Chromium binary will be downloaded by npm (a little over 100 Mb), which can slow things down a little bit, but I think in the long term it will save time in troubleshooting browser issues with cookies, extensions, etc., and the ability to easily leverage Linux is nice as well.
