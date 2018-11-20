@@ -14,3 +14,4 @@ title: Presentations
 * [2018-07-17 - Slack Etiquette](presentations/2018-07-17-TechTalkTuesday-SlackEtiquette.html)
 * [2018-08-21 - State of DevOps Insights](presentations/2018-08-21-TechTalkTuesday-StateOfDevops.html)
 * [2018-08-28 - PowerShell Tips](presentations/2018-08-28-TechTalkTuesday-PowerShellTips.html)
+* [2018-11-20 - The Blame Game](presentations/2018-11-20-TechTalkTuesday-BlameGame.html)
