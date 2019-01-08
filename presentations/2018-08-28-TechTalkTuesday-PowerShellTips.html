@@ -1,143 +1,100 @@
-<!doctype html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <link rel="icon" type="image/png" href="images/i-am-devops[square].png">
-
-  <title>PowerShell Tips - Tech Talk Tuesday</title>
-
-  <link rel="stylesheet" href="css/reveal.css">
-  <link rel="stylesheet" href="css/theme/night.css">
-
-  <!-- Theme used for syntax highlighting of code -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
-
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-    document.getElementsByTagName('head')[0].appendChild(link);
-  </script>
-</head>
-
-<body>
-  <div class="reveal">
-    <div class="slides">
-      <section>
-        <h2>PowerShell Tips</h2>
-        <p style="text-align: right;">Tech Talk Tuesday
-          <br> August 28th, 2018</p>
-      </section>
-      <section>
-        <h2>My Past</h2>
-        <ul>
-          <li>Linux since 2000</li>
-          <li>MacBook</li>
-          <li>Automation</li>
-          <li>Scripting</li>
-        </ul>
-      </section>
-      <section>
-        <h2>It's a Windows World</h2>
-        <ul>
-          <li>Denial</li>
-          <li>Anger</li>
-          <li>Bargaining</li>
-          <li>Depression</li>
-          <li>Acceptance</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Topics</h2>
-        <ul>
-          <li>Editors</li>
-          <li>Pipelining</li>
-          <li>Object Conversion</li>
-          <li>Loops and Filters</li>
-          <li>Hidden Gems</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Editors</h2>
-        <ul>
-          <li>PowerShell ISE</li>
-          <li>VS Code</li>
-          <li>Notepad</li>
-          <li>Notepad++</li>
-          <li><a href="https://social.technet.microsoft.com/wiki/contents/articles/4109.powershell-script-editors.aspx">Others</a></li>
-        </ul>
-        <p>Beware integrated consoles!!!</p>
-      </section>
-      <section>
-        <h2>Pipelining</h2>
-        <ul>
-          <li>Chaining simple commands</li>
-          <li>Formatting</li>
-          <li>Use variables if too long/complex</li>
-        </ul>
-        <pre><code>
+---
+layout: presentation
+title: "State of DevOps Insights - Tech Talk Tuesday"
+---
+<section>
+  <h2>PowerShell Tips</h2>
+  <p style="text-align: right;">Tech Talk Tuesday
+    <br> August 28th, 2018</p>
+</section>
+<section>
+  <h2>My Past</h2>
+  <ul>
+    <li>Linux since 2000</li>
+    <li>MacBook</li>
+    <li>Automation</li>
+    <li>Scripting</li>
+  </ul>
+</section>
+<section>
+  <h2>It's a Windows World</h2>
+  <ul>
+    <li>Denial</li>
+    <li>Anger</li>
+    <li>Bargaining</li>
+    <li>Depression</li>
+    <li>Acceptance</li>
+  </ul>
+</section>
+<section>
+  <h2>Topics</h2>
+  <ul>
+    <li>Editors</li>
+    <li>Pipelining</li>
+    <li>Object Conversion</li>
+    <li>Loops and Filters</li>
+    <li>Hidden Gems</li>
+  </ul>
+</section>
+<section>
+  <h2>Editors</h2>
+  <ul>
+    <li>PowerShell ISE</li>
+    <li>VS Code</li>
+    <li>Notepad</li>
+    <li>Notepad++</li>
+    <li><a href="https://social.technet.microsoft.com/wiki/contents/articles/4109.powershell-script-editors.aspx">Others</a></li>
+  </ul>
+  <p>Beware integrated consoles!!!</p>
+</section>
+<section>
+  <h2>Pipelining</h2>
+  <ul>
+    <li>Chaining simple commands</li>
+    <li>Formatting</li>
+    <li>Use variables if too long/complex</li>
+  </ul>
+  <pre><code>
 Invoke-RestMethod `
  -Uri https://api.github.com/users/brendonthiede/repos `
   | Sort-Object updated_at `
   | Format-Table -Property clone_url,updated_at
 </code></pre>
-      </section>
-      <section>
-        <h2>Object Conversion</h2>
-        <ul>
-          <li>PowerShell native objects</li>
-          <li>JSON built-ins</li>
-        </ul>
-        <pre><code>
+</section>
+<section>
+  <h2>Object Conversion</h2>
+  <ul>
+    <li>PowerShell native objects</li>
+    <li>JSON built-ins</li>
+  </ul>
+  <pre><code>
 ("{'Name': 'Brendon', 'Details': {'Job': 'DevOps Engineer'}}" `
   | ConvertFrom-Json).Details.Job
 </code></pre>
-        <pre><code>
+  <pre><code>
 (@{Name="Brendon";Details=@{Job="DevOps Engineer"}}).Details.Job
 </code></pre>
-      </section>
-      <section>
-        <h2>Loops and Filters</h2>
-        <pre><code>$ObjArray = @(@{Name="Brendon";Details=@{Job="DevOps Engineer"}};@{Name="Tom";Details=@{Job="Operations"}};@{Name="Tom";Details=@{Job="DevOps Engineer"}})</code></pre>
-        <pre><code>$ObjArray | `
+</section>
+<section>
+  <h2>Loops and Filters</h2>
+  <pre><code>$ObjArray = @(@{Name="Brendon";Details=@{Job="DevOps Engineer"}};@{Name="Tom";Details=@{Job="Operations"}};@{Name="Tom";Details=@{Job="DevOps Engineer"}})</code></pre>
+  <pre><code>$ObjArray | `
   Where-Object {
     $_.Details.Job -eq "DevOps Engineer"
   } | ForEach-Object {
     Write-Output $_.Name
   }
 </code></pre>
-        <pre><code>1..10 | `
+  <pre><code>1..10 | `
   ForEach-Object {
     Write-Output $_
   }</code></pre>
-      </section>
-      <section>
-        <h2>Hidden Gems</h2>
-        <ul>
-          <li>Save your place: <code>Push-Location</code>/<code>Pop-Location</code></li>
-          <li>Environment variables: <code>Get-ChildItem env:</code></li>
-          <li>.Net Code: <code>[System.IO.Compression.ZipFile]::CreateFromDirectory("C:\tmp", "C:\tmp.zip")</code></li>
-        </ul>
-      </section>
-    </div>
-  </div>
-
-  <script src="lib/js/head.min.js"></script>
-  <script src="js/reveal.js"></script>
-
-  <script>
-    Reveal.initialize({
-      dependencies: [
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
-      ],
-      history: true
-    });
-  </script>
-</body>
-
-</html>
+</section>
+<section>
+  <h2>Hidden Gems</h2>
+  <ul>
+    <li>Save your place: <code>Push-Location</code>/<code>Pop-Location</code></li>
+    <li>Environment variables: <code>Get-ChildItem env:</code></li>
+    <li>.Net Code: <code>[System.IO.Compression.ZipFile]::CreateFromDirectory("C:\tmp", "C:\tmp.zip")</code></li>
+  </ul>
+</section>
