@@ -1,79 +1,36 @@
-<!doctype html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <link rel="icon" type="image/png" href="images/i-am-devops[square].png">
-
-  <title>The Blame Game - Tech Talk Tuesday</title>
-
-  <link rel="stylesheet" href="css/reveal.css">
-  <link rel="stylesheet" href="css/theme/night.css">
-
-  <!-- Theme used for syntax highlighting of code -->
-  <link rel="stylesheet" href="lib/css/zenburn.css">
-
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-    document.getElementsByTagName('head')[0].appendChild(link);
-  </script>
-</head>
-
-<body>
-  <div class="reveal">
-    <div class="slides">
-      <section>
-        <h2>The Blame Game</h2>
-        <p style="text-align: right;">Tech Talk Tuesday
-          <br> November 20th, 2018</p>
-      </section>
-      <section>
-        <h2>Blameless Postmortems</h2>
-        <a href="https://codeascraft.com/2012/05/22/blameless-postmortems/">Coined by John Allspaw	</a>
-      </section>
-      <section>
-        <ul>
-          <li>Assume people are doing the best they can with the information they have.</li>
-          <li>Create an environment where people can explain why the action made sense to them at the time.</li>
-          <li>See human error as an effect of deeper systematic vulnerabilities within the organization.</li>
-          <li>Dig deeper into what caused the problem. Use the 5 Whys technique.</li>
-          <li>Celebrate that organizations can only improve by constantly seeking out their systematic vulnerabilities.</li>
-        </ul>
-      </section>
-      <section>
-        <h2>What is Root Cause?</h2>
-        Words matter
-      </section>
-      <section>
-        <h2>ITIL Definition</h2>
-        <p>The underlying or original cause of an incident or problem.</p>
-      </section>
-      <section>
-        <h2>Discussion</h2>
-        <p>Can you we ever know "root cause"?</p>
-        <p>How can we make changes that improve the future?</p>
-        <p>How do we make sure we never stop learning and improving?</p>
-      </section>
-    </div>
-  </div>
-
-  <script src="lib/js/head.min.js"></script>
-  <script src="js/reveal.js"></script>
-
-  <script>
-    Reveal.initialize({
-      dependencies: [
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
-      ],
-      history: true
-    });
-  </script>
-</body>
-
-</html>
+---
+layout: presentation
+title: "The Blame Game - Tech Talk Tuesday"
+---
+<section>
+  <h2>The Blame Game</h2>
+  <p style="text-align: right;">Tech Talk Tuesday
+    <br> November 20th, 2018</p>
+</section>
+<section>
+  <h2>Blameless Postmortems</h2>
+  <a href="https://codeascraft.com/2012/05/22/blameless-postmortems/">Coined by John Allspaw </a>
+</section>
+<section>
+  <ul>
+    <li>Assume people are doing the best they can with the information they have.</li>
+    <li>Create an environment where people can explain why the action made sense to them at the time.</li>
+    <li>See human error as an effect of deeper systematic vulnerabilities within the organization.</li>
+    <li>Dig deeper into what caused the problem. Use the 5 Whys technique.</li>
+    <li>Celebrate that organizations can only improve by constantly seeking out their systematic vulnerabilities.</li>
+  </ul>
+</section>
+<section>
+  <h2>What is Root Cause?</h2>
+  Words matter
+</section>
+<section>
+  <h2>ITIL Definition</h2>
+  <p>The underlying or original cause of an incident or problem.</p>
+</section>
+<section>
+  <h2>Discussion</h2>
+  <p>Can you we ever know "root cause"?</p>
+  <p>How can we make changes that improve the future?</p>
+  <p>How do we make sure we never stop learning and improving?</p>
+</section>
