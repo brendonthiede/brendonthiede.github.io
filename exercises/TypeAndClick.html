@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Type and Click Multitasking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+  <style>
+    #top {
+      position: relative;
+    }
+    textarea {
+      width: 100%;
+    }
+    #score-area {
+      margin: 5px;
+      font-size: x-large;
+    }
+    #notification {
+      font-size: x-large;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: lightslategray;
+    }
+    #notification.hasNotification {
+      color: darkred;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="top">
+      <h2>Text to type:</h2>
+      <p>Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived, and so
+        dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion
+        of
+        that field, as a final resting-place for those who here gave their lives, that that nation might live. It is
+        altogether fitting and proper that we should do this.</p>
+      <div id="notification" onclick="acknowledgeNotification()"><i class="fa fa-bell" id="notification-bell"></i><span
+          id="notification-count">0</span></div>
+    </div>
+    <div>
+      <textarea rows="5"></textarea>
+    </div>
+    <div id="score-area">
+      <button id="startTimer" onclick="startTimer()" type="button" class="btn btn-success">Start</button>
+      <button id="startTimer" onclick="stopTimer()" type="button" class="btn btn-danger">Stop</button>
+      <span id="timer">
+        <span id="minutes" class="timer">00</span><span id="colon" class="timer">:</span><span id="seconds" class="timer">00</span>
+      </span>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
+    crossorigin="anonymous"></script>
+  <script>
+    const notificationsTimings = [7, 13, 17, 21, 25, 31, 34, 37, 42, 47, 51, 56, 62, 65, 68, 73, 78, 84, 87, 93, 97, 100, 103, 109, 112, 115, 119, 125, 128, 132, 138, 144, 149, 155, 160, 166, 170, 174, 178];
+
+    let notifications = 0;
+    let timeElapsed = 0;
+    let penalty = 0;
+    let timerInterval = {};
+
+    function updateDisplay() {
+      const minutes = ("0" + Math.floor((timeElapsed % (60 * 60)) / 60)).substr(-2);
+      const seconds = ("0" + Math.floor(timeElapsed % 60)).substr(-2);
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if (notifications > 0) {
+        document.getElementById("notification").classList.add("hasNotification");
+      } else {
+        document.getElementById("notification").classList.remove("hasNotification");
+      }
+      document.getElementById("notification-count").innerHTML = notifications;
+    }
+
+    function startTimer() {
+      notifications = 0;
+      timeElapsed = 0;
+      penalty = 0;
+      updateDisplay();
+
+      timerInterval = setInterval(function () {
+        timeElapsed++;
+
+        if (notificationsTimings.indexOf(timeElapsed) >= 0) {
+          notifications++;
+        }
+        updateDisplay();
+      }, 1000);
+    }
+
+    function acknowledgeNotification() {
+      notifications--;
+      updateDisplay();
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+  </script>
+</body>
+
+</html>
