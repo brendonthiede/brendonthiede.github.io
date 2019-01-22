@@ -51,9 +51,12 @@
     <div id="score-area">
       <button id="startTimer" onclick="startTimer()" type="button" class="btn btn-success">Start</button>
       <button id="startTimer" onclick="stopTimer()" type="button" class="btn btn-danger">Stop</button>
-      <span id="timer">
+      <div id="timer">Timer:
         <span id="minutes" class="timer">00</span><span id="colon" class="timer">:</span><span id="seconds" class="timer">00</span>
-      </span>
+      </div>
+      <div id="penalty">Penalty:
+        <span id="p-minutes" class="timer">00</span><span id="colon" class="timer">:</span><span id="p-seconds" class="timer">00</span>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -61,7 +64,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
     crossorigin="anonymous"></script>
   <script>
-    const notificationsTimings = [7, 13, 17, 21, 25, 31, 34, 37, 42, 47, 51, 56, 62, 65, 68, 73, 78, 84, 87, 93, 97, 100, 103, 109, 112, 115, 119, 125, 128, 132, 138, 144, 149, 155, 160, 166, 170, 174, 178];
+    const notificationsTimings = [7, 17, 25, 34, 42, 51, 62, 68, 78, 87, 97, 103, 112];
+    const lastNotification = notificationsTimings[notificationsTimings.length - 1]
 
     let notifications = 0;
     let timeElapsed = 0;
@@ -74,10 +78,19 @@
       document.getElementById("minutes").innerHTML = minutes;
       document.getElementById("seconds").innerHTML = seconds;
 
+      const pMinutes = ("0" + Math.floor((penalty % (60 * 60)) / 60)).substr(-2);
+      const pSeconds = ("0" + Math.floor(penalty % 60)).substr(-2);
+      document.getElementById("p-minutes").innerHTML = pMinutes;
+      document.getElementById("p-seconds").innerHTML = pSeconds;
+
       if (notifications > 0) {
         document.getElementById("notification").classList.add("hasNotification");
       } else {
         document.getElementById("notification").classList.remove("hasNotification");
+      }
+      if (notifications >= lastNotification) {
+        document.getElementById("notification-bell").classList.remove("fa-bell");
+        document.getElementById("notification-bell").classList.remove("fa-bell-slash");
       }
       document.getElementById("notification-count").innerHTML = notifications;
     }
@@ -90,7 +103,7 @@
 
       timerInterval = setInterval(function () {
         timeElapsed++;
-
+        penalty += notifications;
         if (notificationsTimings.indexOf(timeElapsed) >= 0) {
           notifications++;
         }
@@ -100,6 +113,7 @@
 
     function acknowledgeNotification() {
       notifications--;
+      notifications = Math.max(notifications, 0);
       updateDisplay();
     }
 
