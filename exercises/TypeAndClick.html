@@ -52,10 +52,10 @@
       <button id="startTimer" onclick="startTimer()" type="button" class="btn btn-success">Start</button>
       <button id="startTimer" onclick="stopTimer()" type="button" class="btn btn-danger">Stop</button>
       <div id="timer">Timer:
-        <span id="minutes" class="timer">00</span><span id="colon" class="timer">:</span><span id="seconds" class="timer">00</span>
+        <span id="time-elapsed" class="timer"></span>
       </div>
       <div id="penalty">Penalty:
-        <span id="p-minutes" class="timer">00</span><span id="colon" class="timer">:</span><span id="p-seconds" class="timer">00</span>
+        <span id="time-penalized" class="timer"></span>
       </div>
     </div>
   </div>
@@ -72,16 +72,15 @@
     let penalty = 0;
     let timerInterval = {};
 
-    function updateDisplay() {
-      const minutes = ("0" + Math.floor((timeElapsed % (60 * 60)) / 60)).substr(-2);
-      const seconds = ("0" + Math.floor(timeElapsed % 60)).substr(-2);
-      document.getElementById("minutes").innerHTML = minutes;
-      document.getElementById("seconds").innerHTML = seconds;
+    function formatSeconds(seconds) {
+      const minutes = ("0" + Math.floor((seconds % (60 * 60)) / 60)).substr(-2);
+      const seconds = ("0" + Math.floor(seconds % 60)).substr(-2);
+      return `${minutes}:${seconds}`;
+    }
 
-      const pMinutes = ("0" + Math.floor((penalty % (60 * 60)) / 60)).substr(-2);
-      const pSeconds = ("0" + Math.floor(penalty % 60)).substr(-2);
-      document.getElementById("p-minutes").innerHTML = pMinutes;
-      document.getElementById("p-seconds").innerHTML = pSeconds;
+    function updateDisplay() {
+      document.getElementById("time-elapsed").innerHTML = formatSeconds(timeElapsed);
+      document.getElementById("time-penalized").innerHTML = formatSeconds(penalty);
 
       if (notifications > 0) {
         document.getElementById("notification").classList.add("hasNotification");
