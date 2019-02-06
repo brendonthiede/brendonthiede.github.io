@@ -7,6 +7,7 @@ title: Presentations
 ## DevOps
 
 * [2018-06-05 - Azure Functions: Serverless Development Concepts](presentations/2018-06-05-Lansing-DevOps-Meetup.html)
+* [2019-02-05 - DevOps Hands-on Workshop](presentations/2019-02-05-Lansing-DevOps-Meetup.html)
 
 ## Tech Talk Tuesdays
 
