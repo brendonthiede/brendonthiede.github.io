@@ -18,3 +18,4 @@ title: Presentations
 * [2018-11-20 - The Blame Game](presentations/2018-11-20-TechTalkTuesday-BlameGame.html)
 * [2019-01-08 - Software and Ethics](presentations/2019-01-08-TechTalkTuesday-SoftwareEthics.html)
 * [2019-01-22 - The Truth About Multitasking](presentations/2019-01-22-TechTalkTuesday-Multitasking.html)
+* [2019-02-19 - What's an Azure](presentations/2019-02-19-TechTalkTuesday-WhatIsAzure.html)
