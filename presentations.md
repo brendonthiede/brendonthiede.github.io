@@ -19,3 +19,4 @@ title: Presentations
 * [2019-01-08 - Software and Ethics](presentations/2019-01-08-TechTalkTuesday-SoftwareEthics.html)
 * [2019-01-22 - The Truth About Multitasking](presentations/2019-01-22-TechTalkTuesday-Multitasking.html)
 * [2019-02-19 - What's an Azure](presentations/2019-02-19-TechTalkTuesday-WhatIsAzure.html)
+* [2019-02-26 - Azure Organizational Structure](presentations/2019-02-26-TechTalkTuesday-AzureStructure.html)
