@@ -13,3 +13,11 @@ Notes are at [2018-03-26-try-again.markdown](https://brendonthiede.github.io/dev
 ```powershell
 bundle exec jekyll serve
 ```
+
+## Upgrading Ruby Gems
+
+In order to upgrade the Ruby Gems used by Jekyll, run the following:
+
+```powershell
+bundle update
+```
