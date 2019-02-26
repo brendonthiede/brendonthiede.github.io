@@ -21,20 +21,31 @@ title: "Azure Organizational Structure - Tech Talk Tuesday"
   <p>Differences between Commercial and Government:</p>
   <ul>
     <li>Data Centers</li>
-    <li>Active Directory</li>
+    <li>Active Directory (Tenant)</li>
     <li>Available Features</li>
   </ul>
 </section>
 <section>
   <h3>Subscriptions</h3>
+  <ul>
+    <li>What we call an "Environment"</li>
+    <li>Dev/Test is cheaper</li>
+    <li>Enterprise Monitoring is "different" (hopefully not needed much longer)</li>
+  </ul>
 </section>
 <section>
   <h3>Resource Groups</h3>
+  <ul>
+    <li>Not physical, but assigned to a region</li>
+    <li>Represents access controls and resource organization</li>
+    <li>No cost</li>
+  </ul>
 </section>
 <section>
   <h3>Resources</h3>
   <ul>
-    <li>Deployed to a region<ul>
+    <li>Belong to a Resource Group</li>
+    <li>Deployed to a region (<i>may</i> match Resource Group)<ul>
         <li>Data egress charges</li>
         <li>Feature availability</li>
       </ul>
@@ -42,22 +53,58 @@ title: "Azure Organizational Structure - Tech Talk Tuesday"
   </ul>
 </section>
 <section>
-  <h3>Subscriptions</h3>
+  <h3>Common Resources</h3>
+  <ul>
+    <li>App Service</li>
+    <li>Azure Database/Server</li>
+    <li>Storage Account</li>
+    <li>Service Bus (Topics/Subscriptions)</li>
+    <li>Key Vault</li>
+    <li>Azure VM, et al</li>
+  </ul>
+</section>
+<section>
+    <iframe frameborder="0" style="width:100%;height:553px;" src="https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1#G1-ubtp2RES3ampRqEazuRhiFMRqHPqM-O"></iframe>
+</section>
+<section>
+  <h3>VM Components</h3>
+  <ul>
+    <li>AZ-S-APP01: Virtual machine</li>
+    <li>IaaSDiagnostics (AZ-S-APP01/IaaSDiagnostics): Microsoft.Compute/virtualMachines/extensions</li>
+    <li>azsapp01diag: Storage account</li>
+    <li>AzureBackup_az-s-app01: Microsoft.Compute/restorePointCollections</li>
+    <li>JISStageVault: Recovery Services vault</li>
+    <li>micourtsuitestagingrg531: Storage account</li>
+    <li>AZ-S-APP01_OsDisk_1_...: Disk</li>
+    <li>az-s-app01505: Network interface</li>
+    <li>AZ-S-APP01-ip: Public IP address</li>
+    <li>AZ-S-APP01-nsg: Network security group</li>
+  </ul>
+</section>
+<section>
+  <h3>Shared JIS Resources</h3>
+  <ul>
+    <li>JIS Common: App Service Plan</li>
+    <li>JIS Logging: Cosmos DB</li>
+    <li>Proxy Service: App Service/Plan</li>
+  </ul>
 </section>
 <section>
   <h3>Application Insights</h3>
+  <ul>
+    <li>Not yet available in Government Cloud</li>
+    <li>Unique Subscription</li>
+  </ul>
 </section>
 <section>
-  <h3>Key Vault</h3>
+  <h3>Hybrid Connectivity</h3>
+  <ul>
+    <li>Hybrid Connection</li>
+    <li>VPN connected VNET</li>
+  </ul>
 </section>
 <section>
-  <h3>Pleasant Password Server</h3>
-</section>
-<section>
-  <h3>Managed Service Identity</h3>
-</section>
-<section>
-  <h3>RBAC</h3>
+  <h2>Controlling Access</h2>
 </section>
 <section>
   <h3>AD Groups</h3>
@@ -65,5 +112,30 @@ title: "Azure Organizational Structure - Tech Talk Tuesday"
     <li>Owners</li>
     <li>Contributors</li>
     <li>Readers</li>
+  </ul>
+</section>
+<section>
+  <h3>Key Vault</h3>
+  <ul>
+    <li>Applications as the primary consumer</li>
+    <li>Hardware level encryption</li>
+    <li>Easily leveraged during deployment</li>
+  </ul>
+</section>
+<section>
+  <h3>Managed Service Identity</h3>
+  <ul>
+    <li>Applications as the <i>only</i> consumer</li>
+    <li>Automatically rotating</li>
+    <li>High entropy</li>
+    <li>Manged in ARM template</li>
+  </ul>
+</section>
+<section>
+  <h3>Pleasant Password Server</h3>
+  <ul>
+    <li>Users as the <i>only</i> consumer</li>
+    <li>Uses AD</li>
+    <li>Demo</li>
   </ul>
 </section>
