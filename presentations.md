@@ -20,3 +20,4 @@ title: Presentations
 * [2019-01-22 - The Truth About Multitasking](presentations/2019-01-22-TechTalkTuesday-Multitasking.html)
 * [2019-02-19 - What's an Azure](presentations/2019-02-19-TechTalkTuesday-WhatIsAzure.html)
 * [2019-02-26 - Azure Organizational Structure](presentations/2019-02-26-TechTalkTuesday-AzureStructure.html)
+* [2019-03-19 - Azure Design Patterns](presentations/2019-03-19-TechTalkTuesday-AzurePatterns.html)
