@@ -8,6 +8,22 @@ Jekyll blog using [Long Haul theme](http://github.com/brianmaierjr/long-haul)
 
 Notes are at [2018-03-26-try-again.markdown](https://brendonthiede.github.io/devops/2018/03/27/try-again.html)
 
+Scripted version if you use [Chocolatey](https://chocolatey.org/) (assumes Ruby 2.6 is still the current version):
+
+```powershell
+# As Admin:
+cinst ruby -y
+cinst msys2 -y
+# To be safe, close the prompt and open a fresh admin PowerShell instalce to continue
+C:\tools\ruby26\bin\gem install jekyll bundler
+C:\tools\ruby26\bin\ridk install # choose the appropriate option, probably 3
+```
+
+```powershell
+# From new shell in this directory:
+bundle install
+```
+
 ## Running Locally
 
 ```powershell
