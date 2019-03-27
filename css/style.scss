@@ -81,6 +81,11 @@ audio:not([controls]){
 img{
     border-style:none
 }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 svg:not(:root){
     overflow:hidden
 }
