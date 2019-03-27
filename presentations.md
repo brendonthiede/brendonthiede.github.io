@@ -7,7 +7,13 @@ title: Presentations
 ## DevOps
 
 * [2018-06-05 - Azure Functions: Serverless Development Concepts](presentations/2018-06-05-Lansing-DevOps-Meetup.html)
-* [2019-02-05 - DevOps Hands-on Workshop](presentations/2019-02-05-Lansing-DevOps-Meetup.html)
+* [2019-02-05 - DevOps Hands-on Workshop](presentations/2019-02-05-Lansing-DevOps-Meetup.html) ([code](https://github.com/brendonthiede/2019-02-lansing-devops-meetup-hands-on))
+* [2019-09-10 - MiDevOps](presentations/2019-09-10-CTC-MiDevOps.html)
+
+## JavaScript
+
+* [2018-02-20 - GraphQL: Better than the REST](https://github.com/brendonthiede/js-meetup-graphql)
+* [2019-03-19 - Getting Started with WebAssembly](presentations/2019-03-19-JavaScriptMeetup.html)
 
 ## Tech Talk Tuesdays
 
