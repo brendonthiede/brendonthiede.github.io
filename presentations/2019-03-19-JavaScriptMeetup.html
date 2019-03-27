@@ -1,0 +1,72 @@
+---
+layout: presentation
+title: "WebAssembly - Lansing JavaScript Meetup"
+---
+<section>
+  <h3>Getting Started with WebAssembly</h3>
+  <p style="text-align: right;">Lansing JavaScript Meetup
+    <br> March 19th, 2019</p>
+</section>
+<section>
+  <h3 style="text-align: left;">Brendon Thiede</h3>
+  <ul>
+    <li>DevOps Engineer at the Michigan Supreme Court</li>
+    <li>Empowering teams</li>
+    <li>Simplifying best practices</li>
+  </ul>
+</section>
+<section>
+  <h3>Transpiled vs Compiled</h3>
+  <ul>
+    <li>Transpiled: Source code &RightArrow; Source Code</li>
+    <li>Compiled: Source code &RightArrow;<ul>
+      <li>Bytecode</li>
+      <li>Assembly</li>
+      <li>Machine code</li>
+    </ul></li>
+  </ul>
+</section>
+<section>
+  <h3>Binary Code Format</h3>
+  <ul>
+    <li>W3C Standard</li>
+    <li>Has text and compressed representations</li>
+  </ul>
+</section>
+<section>
+  <h3>Availability</h3>
+  <ul>
+    <li>In all the major browsers</li>
+    <li>Workers in Cloudflare (V8 Isolates)</li>
+    <li>Server side</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Safety and Security</h3>
+  <ul>
+    <li>Code and data are separate</li>
+    <li>Crashes don't throw away code</li>
+    <li>32-bit Pointers</li>
+    <li>Linear memory (no holes; only grows)</li>
+    <li>Function pointers (Function pointers are <i>weird</i>)</li>
+  </ul>
+</section>
+<section>
+  <h3>Fast</h3>
+  <ul>
+    <li>Strongly typed</li>
+    <li>Ahead of time optimized</li>
+    <li>Near native speeds</li>
+    <li>Can be smaller</li>
+  </ul>
+</section>
+<section>
+  <h3>Toolchains</h3>
+  <ul>
+    <li>C++: Emscripten</li>
+    <li>Rust (Mozilla likey)</li>
+    <li>TypeScript: AssemblyScript</li>
+    <li>C#: mono.wasm, Razor Components</li>
+  </ul>
+</section>
