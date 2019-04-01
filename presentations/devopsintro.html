@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DevOps Meetup Intro</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Open Sans, Helvetica, sans-serif;
+            font-weight: 300;
+            line-height: 1.4;
+            color: #535353;
+            background: #f9f7f5;
+            padding: 0;
+            border: 0;
+        }
+
+        iframe {
+            overflow: hidden;
+        }
+
+        blockquote {
+            font-size: 2em;
+        }
+
+        img.logo {
+            margin-left: auto;
+            width: 50%;
+            margin-right: auto;
+            display: block;
+        }
+
+        .panel {
+            width: 99vw;
+            height: 99vh;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+        }
+
+        .active-panel {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <iframe class="panel active-panel" id="lansing-codes" src="https://slide.lansing.codes/#devops" frameborder="0"
+            scrolling="no" seamless="seamless"></iframe>
+    </div>
+    <script>
+        let activeIndex = 0;
+        let rotationState = 'paused';
+        let rotationMilliseconds = 45000;
+        let rotationInterval, currentPanels;
+
+        const sponsorTemplate = `<div class="panel" id="food-sponsor">
+            <h1>{{type}} Sponsor: {{name}}</h1>
+            <img class="logo" src="{{image}}" alt="{{name}}">
+            <blockquote>“{{tagline}}”</blockquote>
+</div>`;
+
+        const sponsorList = {
+            "a2hosting": {
+                "name": "A2 Hosting",
+                "image": "https://www.a2hosting.com/images/2015/logo.png",
+                "tagline": "A2 Hosting is a web hosting company based out of Ann Arbor, Michigan with data centers across the globe. At A2, we specialize in performance based hosting for everyone, with a proactive service team working around the clock. Whether you've never run a website before or are a professional developer, rest assured we have a web hosting solution to meet your unique needs!"
+            },
+            "teksystems": {
+                "name": "TEKsystems",
+                "image": "https://www.teksystems.com/-/media/fpo-image-750x350-logo.png",
+                "tagline": "Whether it’s transforming your business, building an all-star team or finding the right fit for your professional ambitions, we’re in it with you."
+            },
+            "analysts": {
+                "name": "Analysts",
+                "image": "https://analysts.com/wp-content/uploads/2018/08/ggktech.white_.svg",
+                "tagline": "Our commitment to excellence and passion for digital technology can propel your transformation."
+            }
+        };
+
+        const currentSponsors =
+            [
+                { "type": "Food", "sponsor": "a2hosting" },
+                { "type": "Venue", "sponsor": "teksystems" },
+                { "type": "Swag", "sponsor": "analysts" }
+            ];
+
+        const toggleRotationState = (newState) => {
+            if (newState === 'paused' || rotationState === 'playing') {
+                rotationState = 'paused';
+                clearInterval(rotationInterval);
+            } else {
+                rotationState = 'playing';
+                rotationInterval = setInterval(setNextPanel, rotationMilliseconds);
+            }
+        };
+
+        const deactivatePriorPanel = () => {
+            document.querySelectorAll('.active-panel').forEach((elem) => {
+                elem.className = elem.className.replace(/\bactive-panel\b/, '');
+            });
+        };
+
+        const activatePanel = (index) => {
+            deactivatePriorPanel();
+            currentPanels[index].className += " active-panel";
+        };
+
+        const setNextPanel = () => {
+            activeIndex++;
+            if (activeIndex >= currentPanels.length) {
+                activeIndex = 0;
+            }
+            activatePanel(activeIndex);
+        };
+
+        const setPreviousPanel = () => {
+            activeIndex--;
+            if (activeIndex < 0) {
+                activeIndex = currentPanels.length - 1;
+            }
+            activatePanel(activeIndex);
+        };
+
+        const initializeKeyboardControls = () => {
+            document.addEventListener("keyup", function (event) {
+                if (event.key === 'ArrowRight') {
+                    setNextPanel();
+                } else if (event.key === 'ArrowLeft') {
+                    setPreviousPanel();
+                } else if (event.key === 'p') {
+                    toggleRotationState();
+                }
+            });
+        };
+
+        const addSponsor = (sponsor) => {
+            let parent = document.createElement('DIV');
+            parent.innerHTML = sponsorTemplate.replace(/\{\{([^}]*)\}\}/g, function (match, token) {
+                return sponsor[token];
+            });
+            document.getElementById('content').appendChild(parent.firstChild);
+        };
+
+        const addCurrentSponsors = () => {
+            currentSponsors.forEach((sponsor) => {
+                let sponsorDetails = sponsorList[sponsor.sponsor];
+                sponsorDetails.type = sponsor.type;
+                addSponsor(sponsorDetails);
+            });
+        };
+
+        addCurrentSponsors();
+        currentPanels = document.querySelectorAll('.panel');
+        initializeKeyboardControls();
+        toggleRotationState('playing');
+    </script>
+</body>
+
+</html>
