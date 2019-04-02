@@ -123,11 +123,121 @@ image: https://secure.meetupstatic.com/photos/event/4/a/b/4/highres_479719124.jp
 </section>
 <section>
   <h3>Containers</h3>
+  <ul>
+    <li>Microservices</li>
+    <li>Orchestration</li>
+    <li>Scheduling</li>
+    <li>Fan-out/fan-in</li>
+  </ul>
 </section>
-
-
-
-
+<section>
+  <h2>Distributed Systems are Hard...</h2>
+</section>
+<section>
+  <h3>Brendon's Microservices Formula</h3>
+  <pre><code>
+if (service.independentScale == BENEFICIAL &&
+    service.independentDeployment == REQUIRED &&
+    service.interopSpeed == NEGOTIABLE) {
+  you.makeMicroservice();
+} else {
+  you.goWithWhatYouKnow();
+}
+  </code></pre>
+</section>
+<section>
+  <h3>Networking</h3>
+  <ul>
+    <li>Service mesh</li>
+    <li>Sidecar</li>
+    <li>Service discovery</li>
+  </ul>
+</section>
+<section>
+  <h3>Load Balancer</h3>
+  <ul>
+    <li>Layer 4 - Faster, but limited info (port and protocol)</li>
+    <li>Layer 7 - Application awareness (HTTP, etc)</li>
+    <li>Persistent</li>
+    <li>Round-robin</li>
+  </ul>
+</section>
+<section>
+  <h3>Routing</h3>
+  <ul>
+    <li>DNS - A record, CNAME</li>
+    <li>Reverse proxy</li>
+    <li>Virtual network (VNET)/Hybrid network</li>
+    <li>Subnet - CIDR notation</li>
+    <li>Zero trust network</li>
+  </ul>
+</section>
+<section>
+  <h2>Outages Happen...</h2>
+</section>
+<section>
+  <ul>
+    <li>White listing</li>
+    <li>Black listing</li>
+    <li>Circuit breaker pattern</li>
+    <li>Chaos engineering</li>
+    <li>Fault injection</li>
+  </ul>
+</section>
+<section>
+  <h3>Ephemeral Services</h3>
+  <ul>
+    <li>Cattle vs Pets</li>
+    <li>Idempotent deployment</li>
+  </ul>
+</section>
+<section>
+  <h2>So What About Persistence?</h2>
+</section>
+<section>
+  <h3>Databases</h3>
+  <ul>
+    <li>NoSQL</li>
+    <li>CAP Theorem</li>
+    <li>Eventually consistent</li>
+    <li>Horizontally scalable</li>
+    <li>Polyglot persistence</li>
+  </ul>
+</section>
+<section>
+  <h3>Event Driven Architecture</h3>
+  <ul>
+    <li>Message queues</li>
+    <li>Event loops</li>
+    <li>Triggers</li>
+    <li>Webhooks</li>
+  </ul>
+</section>
+<section>
+  <h2>Show Me The Runny!!!</h2>
+</section>
+<section>
+  <h3>Continuous Delivery</h3>
+  <ul>
+    <li>Build triggered deployment</li>
+    <li>Feature toggle</li>
+    <li>Gated deployment</li>
+    <li>Canary deployment</li>
+    <li>Blue/Green deployment</li>
+    <li>Self healing</li>
+    <li>Instrumentation - telemetry</li>
+    <li>A/B testing</li>
+  </ul>
+</section>
+<section>
+  <h2>Special Bonus Words!</h2>
+  <ul>
+    <li>IoT</li>
+    <li>Intelligent edge</li>
+    <li>Blockchain</li>
+    <li>Big data</li>
+  </ul>
+</section>
 <section>
   <h3>Further Reading</h3>
   <ul>
