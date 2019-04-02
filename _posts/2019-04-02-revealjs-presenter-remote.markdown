@@ -69,8 +69,6 @@ Here's a sample of what it looks like in action:
 
 ![Usage Screenshot](/assets/img/revealjsremoteusage.jpg "Usage screenshot")
 
-I guess you have to take my word for it that the smaller tab in the front is one slide ahead of the other :-)
-
 If you want to try it out yourself you can open [this as the presenter tab](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html?mode=presenter#/) and in another tab open [this as the audience view](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html#/). If you change the slide in the presenter tab you should see that the audience tab gets updated to be one prior.
 
 To view the full source for how I use my presentations from Jekyll, you can look at my [GitHub repo](https://github.com/brendonthiede/brendonthiede.github.io).
