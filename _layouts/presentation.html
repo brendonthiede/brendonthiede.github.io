@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="shortcut icon" type="image/png" href="images/i-am-devops[square].png">
+  <link rel="shortcut icon" type="image/png" href="images/i-am-devops.png">
   <title>{{ page.title }}</title>
 
   <link rel="stylesheet" href="css/reveal.css">
@@ -35,12 +35,32 @@
   <script src="js/reveal.js"></script>
 
   <script>
+    const bc = new BroadcastChannel('controller');
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+
+    if (mode !== 'presenter') {
+      document.querySelectorAll('.presenter').forEach((elem) => { elem.parentNode.removeChild(elem); });
+    }
+
     Reveal.initialize({
       dependencies: [
         { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
       ],
       history: true
     });
+
+    if (mode === 'presenter') {
+      Reveal.addEventListener('slidechanged', function (event) {
+        bc.postMessage({
+          "presenterSlide": event.indexh
+        });
+      });
+    } else {
+      bc.onmessage = function (ev) {
+        Reveal.slide(ev.data.presenterSlide - 1);
+      }
+    }
   </script>
 </body>
 
