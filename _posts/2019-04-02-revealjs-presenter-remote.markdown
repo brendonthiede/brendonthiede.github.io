@@ -65,10 +65,10 @@ A major assumption here is that you will only use horizontal slide progressions 
     }
 ```
 
-Here's a sample of what it looks like in action:
+Here's a sample of what it looks like in action, where the presenter view (bottom) is using the overview feature of Reveal.js:
 
-![Usage Screenshot](/assets/img/revealjsremoteusage.jpg "Usage screenshot")
+![Usage Screenshot](/assets/img/revealjsremoteusage.jpg "Audience view on top, presenter view on the bottom")
 
-If you want to try it out yourself you can open [this as the presenter tab](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html?mode=presenter#/) and in another tab open [this as the audience view](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html#/). If you change the slide in the presenter tab you should see that the audience tab gets updated to be one prior.
+If you want to try it out yourself you can open [this as the presenter tab](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html?mode=presenter#/) and in another tab open, [this as the audience view](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html#/). If you change the slide in the presenter tab you should see that the audience tab gets updated to be one prior.
 
 To view the full source for how I use my presentations from Jekyll, you can look at my [GitHub repo](https://github.com/brendonthiede/brendonthiede.github.io).
