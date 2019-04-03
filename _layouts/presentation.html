@@ -36,30 +36,31 @@
 
   <script>
     const controlChannel = new BroadcastChannel('controller');
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-
-    if (mode !== 'presenter') {
-      document.querySelectorAll('.presenter').forEach((elem) => { elem.parentNode.removeChild(elem); });
-    }
+    let remoteSlide = { indexh: -1, indexv: -1 };
 
     Reveal.initialize({
       dependencies: [
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () { hljs.initHighlightingOnLoad(); }
+        }
       ],
       history: true
     });
 
-    if (mode === 'presenter') {
-      Reveal.addEventListener('slidechanged', function (event) {
+    Reveal.addEventListener('slidechanged', function (event) {
+      if (remoteSlide.indexh !== event.indexh || remoteSlide.indexv !== event.indexv) {
+        remoteSlide = { indexh: -1, indexv: -1 };
         controlChannel.postMessage({
-          "presenterSlide": event.indexh
+          "indexh": event.indexh,
+          "indexv": event.indexv
         });
-      });
-    } else {
-      controlChannel.onmessage = function (ev) {
-        Reveal.slide(ev.data.presenterSlide - 1);
       }
+    });
+    controlChannel.onmessage = function (event) {
+      remoteSlide = event.data;
+      Reveal.slide(event.data.indexh, event.data.indexv);
     }
   </script>
 </body>

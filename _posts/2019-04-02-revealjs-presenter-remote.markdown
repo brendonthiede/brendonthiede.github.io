@@ -12,7 +12,11 @@ There was, however, one thing that I really wanted to do, was to be able to disp
 ```javascript
     Reveal.initialize({
       dependencies: [
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () { hljs.initHighlightingOnLoad(); }
+        }
       ],
       history: true
     });
@@ -47,7 +51,11 @@ A major assumption here is that you will only use horizontal slide progressions 
 
     Reveal.initialize({
       dependencies: [
-        { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () { hljs.initHighlightingOnLoad(); }
+        }
       ],
       history: true
     });
@@ -72,3 +80,66 @@ Here's a sample of what it looks like in action, where the presenter view (botto
 If you want to try it out yourself you can open [this as the presenter tab](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html?mode=presenter#/) and in another tab open, [this as the audience view](https://www.digestibledevops.com/presentations/2019-04-02-Lansing-DevOps-Meetup.html#/). If you change the slide in the presenter tab you should see that the audience tab gets updated to be one prior.
 
 To view the full source for how I use my presentations from Jekyll, you can look at my [GitHub repo](https://github.com/brendonthiede/brendonthiede.github.io).
+
+## Edit
+
+After just one use, I realized that I did not actually want to have the presenter to be a slide ahead. This actually greatly simplifies things. I technically got it working with just a very naive approach of just:
+
+```javascript
+    const controlChannel = new BroadcastChannel('controller');
+
+    Reveal.initialize({
+      dependencies: [
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () { hljs.initHighlightingOnLoad(); }
+        }
+      ],
+      history: true
+    });
+
+    Reveal.addEventListener('slidechanged', function (event) {
+      controlChannel.postMessage({
+        "indexh": event.indexh,
+        "indexv": event.indexv
+      });
+    });
+    controlChannel.onmessage = function (event) {
+      Reveal.slide(event.data.indexh, event.data.indexv);
+    }
+```
+
+Notice that this will allow for presentations that have vertical slides as well, so that's cool, but there is an extra event that happens where the audience view will also trigger a message post to the broadcast channel. Like I said, this technically worked, but I wanted to be a little smarter, so I added a kind of tracker to let me check where I had gone at the behest of a remote change. I also thought it would be good to allow changes to be synced both ways. Where I ended up was with this:
+
+```javascript
+    const controlChannel = new BroadcastChannel('controller');
+    let remoteSlide = { indexh: -1, indexv: -1 };
+
+    Reveal.initialize({
+      dependencies: [
+        {
+          src: 'plugin/highlight/highlight.js',
+          async: true,
+          callback: function () { hljs.initHighlightingOnLoad(); }
+        }
+      ],
+      history: true
+    });
+
+    Reveal.addEventListener('slidechanged', function (event) {
+      if (remoteSlide.indexh !== event.indexh || remoteSlide.indexv !== event.indexv) {
+        remoteSlide = { indexh: -1, indexv: -1 };
+        controlChannel.postMessage({
+          "indexh": event.indexh,
+          "indexv": event.indexv
+        });
+      }
+    });
+    controlChannel.onmessage = function (event) {
+      remoteSlide = event.data;
+      Reveal.slide(event.data.indexh, event.data.indexv);
+    }
+```
+
+A `remtoteSlide` value of `{ indexh: -1, indexv: -1 }` means "the last slide change was done in this tab", whereas any other value is checked against the current slide, and if they are the same values for `indexh` and `indexv`, the tab assumes it ended up there because a remote tab told it to change, otherwise, the tab again assumes it made the change, and therefore posts a message for any other tabs to change as well.
