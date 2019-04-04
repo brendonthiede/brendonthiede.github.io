@@ -8,7 +8,7 @@ title: Presentations
 
 * [2018-06-05 - Azure Functions: Serverless Development Concepts](presentations/2018-06-05-Lansing-DevOps-Meetup.html)
 * [2019-02-05 - DevOps Hands-on Workshop](presentations/2019-02-05-Lansing-DevOps-Meetup.html) ([code](https://github.com/brendonthiede/2019-02-lansing-devops-meetup-hands-on))
-* [2019-04-02 - DevOps A-Z](presentations/2019-04-02-Lansing-DevOps-Meetup.html)
+* [2019-04-02 - DevOps A-Z](presentations/2019-04-02-Lansing-DevOps-Meetup.html) ([video](https://youtu.be/vAUVQyjuuao))
 * [2019-09-10 - MiDevOps](presentations/2019-09-10-CTC-MiDevOps.html)
 
 ## JavaScript
