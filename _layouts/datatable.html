@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+{% include head.html %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<style>
+   table.dataTable tbody tr:hover {
+      background-color: rgb(225, 225, 225);
+   }
+
+   table.dataTable tbody tr:hover>.sorting_1 {
+      background-color: rgb(225, 225, 225);
+   }
+</style>
+
+<body>
+
+   {% include header.html %}
+
+   <div class="content">
+      <div class="container">
+         {{ content }}
+      </div>
+   </div><!-- end .content -->
+
+   <pre id="datatables-config" style="display:none">
+      {
+      {% if page.datatableorder %}
+         "order": {{ page.datatableorder }},
+      {% else %}
+         "order": [[ 0, "asc" ]],
+      {% endif %}
+      {% if page.datatablepagelength %}
+         "pageLength": {{ page.datatablepagelength }}
+      {% else %}
+         "paging": false
+      {% endif %}
+      }
+   </pre>
+   {% include footer.html %}
+   {% include scripts.html %}
+   <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   <script>
+      $(document).ready(function () {
+         var dataTablesConfig = JSON.parse(document.getElementById('datatables-config').innerHTML);
+         $('table').DataTable(dataTablesConfig);
+      });
+   </script>
+</body>
+
+</html>
