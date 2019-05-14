@@ -1,0 +1,214 @@
+---
+layout: presentation
+title: "Global Azure Bootcamp"
+---
+<section>
+  <h2>Global Azure Bootcamp</h2>
+  <p style="text-align: right;">April 27th, 2019</p>
+</section>
+<section>
+  <h2>Agenda</h2>
+  <ul>
+    <li>What is Azure?</li>
+    <li>Organization and Access Control</li>
+    <li>Common Resource Types</li>
+    <li>Resource Management</li>
+    <li>Scaling</li>
+  </ul>
+</section>
+<section>
+  <h3>What is Azure?</h3>
+</section>
+<section>
+  <blockquote>Microsoft Azure is an ever-expanding set of <b>cloud services</b> to help your organization meet your
+    business challenges.</blockquote>
+  <p><small>https://azure.microsoft.com/en-us/overview/what-is-azure/</small></p>
+</section>
+<section>
+  <h3>What are Cloud Services?</h3>
+  <ul>
+    <li>Infrastructure as a Service - IaaS</li>
+    <li>Platform as a Service - PaaS</li>
+    <li>Software as a Service - SaaS</li>
+  </ul>
+</section>
+<section>
+  <img src="https://msdnshared.blob.core.windows.net/media/2016/04/image745.png" alt="Shared Responsibility">
+  <small
+    style="font-size: xx-small">https://blogs.msdn.microsoft.com/azuresecurity/2016/04/18/what-does-shared-responsibility-in-the-cloud-mean/</small>
+</section>
+<section>
+  <h3>Flexible Capacity</h3>
+  <ul>
+    <li>Capital Expenditure</li>
+    <li>Operating Expenditure</li>
+  </ul>
+</section>
+<section>
+  <p>
+    <a href="https://portal.azure.com/">https://portal.azure.com/</a>
+  </p>
+</section>
+<section>
+  <h2>Questions?</h2>
+</section>
+<section>
+  <h2>Organization and Access Control</h2>
+</section>
+<section>
+  <h3>Enterprise Agreement - EA</h3>
+  <p>Enrollment &rightarrow; Department &rightarrow; Account</p>
+</section>
+<section>
+  <h3>Cloud Environments</h3>
+  <ul>
+    <li>Azure Cloud - "Commercial"</li>
+    <li>Azure US Government - "Government"</li>
+    <li>Azure Germany</li>
+    <li>Azure China 21Vianet</li>
+  </ul>
+</section>
+<section>
+  <h3>Commercial vs Government</h3>
+  <ul>
+    <li>Data Centers/Regions</li>
+    <li>Active Directory (Tenant)</li>
+    <li>Available Features</li>
+  </ul>
+</section>
+<section>
+  <h3>Subscriptions</h3>
+  <ul>
+    <li>Can have multiple per AD tenant</li>
+    <li>Dev/Test is cheaper</li>
+    <li>Azure DevOps tied to one</li>
+  </ul>
+</section>
+<section>
+  <h3>Resource Groups</h3>
+  <ul>
+    <li>Not physical, but assigned to a region</li>
+    <li>Represents access controls and resource organization</li>
+    <li>No cost</li>
+  </ul>
+</section>
+<section>
+  <h3>Resources</h3>
+  <ul>
+    <li>Belong to a Resource Group</li>
+    <li>Deployed to a region (<i>may</i> match Resource Group)<ul>
+        <li>Data egress charges</li>
+        <li>Feature availability</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <h1>stage-01</h1>
+  <p>
+    <a href="https://portal.azure.com/">https://portal.azure.com/</a>
+  </p>
+</section>
+<section>
+  <h2>Questions?</h2>
+</section>
+<section>
+  <h2>Common Resources</h2>
+</section>
+<section>
+  <h3>Storage Account</h3>
+  <ul>
+    <li>Blob</li>
+    <li>Files</li>
+    <li>Tables</li>
+    <li>Queues</li>
+    <li>Performance $</li>
+    <li>Redundancy $</li>
+  </ul>
+</section>
+<section>
+  <h3>App Service Plan</h3>
+  <ul>
+    <li>Hosts App Services and Function Apps</li>
+    <li>Sized like a VM $</li>
+    <li>Scale Up/Down or Scale Out/In $</li>
+    <li>Networking</li>
+    <li>Slots</li>
+  </ul>
+</section>
+<section>
+  <h3>App Service</h3>
+  <ul>
+    <li>Web Apps: .NET, PHP, NodeJS</li>
+    <li>Function Apps: .NET, JavaScript, Java, Python, PowerShell Core</li>
+  </ul>
+</section>
+<section>
+  <h3>Application Insights</h3>
+  <ul>
+    <li>Application Performance Monitoring</li>
+    <li>Distributed Tracing</li>
+    <li>Alerting</li>
+  </ul>
+</section>
+<section>
+  <h1>stage-02</h1>
+  <p>
+    <a href="https://portal.azure.com/">https://portal.azure.com/</a>
+  </p>
+</section>
+<section>
+  <h3>SQL Server</h3>
+  <ul>
+    <li>Logical Server</li>
+    <li>Server Admin</li>
+    <li>Networking</li>
+  </ul>
+</section>
+<section>
+  <h3>SQL Database</h3>
+  <ul>
+    <li>Scale Up/Down</li>
+    <li>Storage Capacity</li>
+    <li>Performance</li>
+    <li>Point-in-time Restore</li>
+  </ul>
+</section>
+<section>
+  <h1>stage-03</h1>
+  <p>
+    <a href="https://portal.azure.com/">https://portal.azure.com/</a>
+  </p>
+</section>
+<section>
+  <h3>Azure Cosmos DB account</h3>
+  <ul>
+    <li>Low Latency</li>
+    <li>High Availability</li>
+    <li>Multiple Supported APIs<ul>
+        <li>SQL</li>
+        <li>MongoDB</li>
+        <li>Cassandra</li>
+        <li>Tables</li>
+        <li>Gremlin</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <h2>Questions?</h2>
+</section>
+<section>
+  <h2>Resource Management</h2>
+</section>
+<section>
+  <h3>Infrastructure as Code</h3>
+  <ul>
+    <li>Azure Resource Manager (ARM) Template</li>
+    <li>Packaged with application code</li>
+    <li>Deployed with the application</li>
+  </ul>
+</section>
+<section>
+  <h2>Hands-On</h2>
+</section>
