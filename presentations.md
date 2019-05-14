@@ -33,3 +33,5 @@ Date      |Presentation                            |Audience
 2019-04-23|[Azure Pipelines](presentations/2019-04-23-TechTalkTuesday-AzurePipeines.html)|Tech Talk Tuesday
 2019-04-11|[JIS Azure Workshop](presentations/2019-04-11-JISAzureWorkshop.html)|Judicial Information Services
 2019-04-16|[Book Review: Atomic Habits](2019-04-16-TechTalkTuesday-AtomicHabits.html)|Tech Talk Tuesday
+2019-04-27|[Global Azure Bootcamp](2019-04-27-GlobalAzureBootcamp.html)|Lansing DevOps Meetup
+2019-05-14|[Teaching Kids to Program](2019-05-14-TechTalkTuesday-TeachingKidsToCode.html)|Tech Talk Tuesday
