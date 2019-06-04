@@ -17,7 +17,7 @@ Date      |Presentation                            |Audience
 2018-06-05|[Azure Functions: Serverless Development Concepts](presentations/2018-06-05-Lansing-DevOps-Meetup.html)|Lansing DevOps Meetup
 2019-02-05|[DevOps Hands-on Workshop](presentations/2019-02-05-Lansing-DevOps-Meetup.html) ([code](https://github.com/brendonthiede/2019-02-lansing-devops-meetup-hands-on))|Lansing DevOps Meetup
 2019-04-02|[DevOps A-Z](presentations/2019-04-02-Lansing-DevOps-Meetup.html) ([video](https://youtu.be/vAUVQyjuuao))|Lansing DevOps Meetup
-2019-09-10|[MiDevOps](presentations/2019-09-10-CTC-MiDevOps.html)|CTC 2019
+2019-06-04|[Lessons Learned at JIS](presentations/2019-06-04-TechTalkTuesday-LessonsLearned.html)|Tech Talk Tuesday
 2018-02-20|[GraphQL: Better than the REST](https://github.com/brendonthiede/js-meetup-graphql)|Lansing JavaScript Meetup
 2019-03-19|[Getting Started with WebAssembly](presentations/2019-03-19-JavaScriptMeetup.html)|Lansing JavaScript Meetup
 2018-06-12|[Agile 101](presentations/2018-06-12-TechTalkTuesday-Agile101.html)|Tech Talk Tuesday
