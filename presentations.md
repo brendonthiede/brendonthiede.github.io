@@ -36,4 +36,4 @@ Date      |Presentation                            |Audience
 2019-04-27|[Global Azure Bootcamp](2019-04-27-GlobalAzureBootcamp.html)|Lansing DevOps Meetup
 2019-05-14|[Teaching Kids to Program](2019-05-14-TechTalkTuesday-TeachingKidsToCode.html)|Tech Talk Tuesday
 2019-05-21|[Making Browser Games with Phaser](2019-05-21-JavaScriptMeetup-MakingBrowserGamesWithPhaser.html)|Lansing JavaScript Meetup
-2019-10-01|[Prioritizing Change](2019-10-01-Lansing-DevOps-PrioritizingChange.html)
+2019-10-01|[Prioritizing Change](2019-10-01-Lansing-DevOps-PrioritizingChange.html)|Lansing JavaScript Meetup
