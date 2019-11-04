@@ -32,8 +32,9 @@ Date      |Presentation                            |Audience
 2019-03-19|[Azure Design Patterns](presentations/2019-03-19-TechTalkTuesday-AzurePatterns.html)|Tech Talk Tuesday
 2019-04-23|[Azure Pipelines](presentations/2019-04-23-TechTalkTuesday-AzurePipeines.html)|Tech Talk Tuesday
 2019-04-11|[JIS Azure Workshop](presentations/2019-04-11-JISAzureWorkshop.html)|Judicial Information Services
-2019-04-16|[Book Review: Atomic Habits](2019-04-16-TechTalkTuesday-AtomicHabits.html)|Tech Talk Tuesday
-2019-04-27|[Global Azure Bootcamp](2019-04-27-GlobalAzureBootcamp.html)|Lansing DevOps Meetup
-2019-05-14|[Teaching Kids to Program](2019-05-14-TechTalkTuesday-TeachingKidsToCode.html)|Tech Talk Tuesday
-2019-05-21|[Making Browser Games with Phaser](2019-05-21-JavaScriptMeetup-MakingBrowserGamesWithPhaser.html)|Lansing JavaScript Meetup
-2019-10-01|[Prioritizing Change](2019-10-01-Lansing-DevOps-PrioritizingChange.html)|Lansing JavaScript Meetup
+2019-04-16|[Book Review: Atomic Habits](presentations/2019-04-16-TechTalkTuesday-AtomicHabits.html)|Tech Talk Tuesday
+2019-04-27|[Global Azure Bootcamp](presentations/2019-04-27-GlobalAzureBootcamp.html)|Lansing DevOps Meetup
+2019-05-14|[Teaching Kids to Program](presentations/2019-05-14-TechTalkTuesday-TeachingKidsToCode.html)|Tech Talk Tuesday
+2019-05-21|[Making Browser Games with Phaser](presentations/2019-05-21-JavaScriptMeetup-MakingBrowserGamesWithPhaser.html)|Lansing JavaScript Meetup
+2019-10-01|[Prioritizing Change](presentations/2019-10-01-Lansing-DevOps-PrioritizingChange.html)|Lansing DevOps Meetup
+2019-11-05|[Event Driven Adventures in Serverless](presentations/2019-11-05-Lansing-DevOps-EventDriven.html)|Lansing DevOps Meetup
