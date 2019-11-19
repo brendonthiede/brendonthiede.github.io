@@ -37,4 +37,4 @@ Date      |Presentation                            |Audience
 2019-05-14|[Teaching Kids to Program](presentations/2019-05-14-TechTalkTuesday-TeachingKidsToCode.html)|Tech Talk Tuesday
 2019-05-21|[Making Browser Games with Phaser](presentations/2019-05-21-JavaScriptMeetup-MakingBrowserGamesWithPhaser.html)|Lansing JavaScript Meetup
 2019-10-01|[Prioritizing Change](presentations/2019-10-01-Lansing-DevOps-PrioritizingChange.html)|Lansing DevOps Meetup
-2019-11-05|[Event Driven Adventures in Serverless](presentations/2019-11-05-Lansing-DevOps-EventDriven.html)|Lansing DevOps Meetup
+2019-11-05|[Event Driven Adventures in Serverless](presentations/2019-11-05-Lansing-DevOps-EventDriven.html) ([video](https://youtu.be/p9wLGp3Mq8g))|Lansing DevOps Meetup
