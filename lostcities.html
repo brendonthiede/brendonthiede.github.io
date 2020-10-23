@@ -1,0 +1,257 @@
+<html>
+<head>
+<title>Lost Cities Scorer</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+<style>
+body {
+  padding-left: 50px;
+}
+
+.label {
+    text-align: right;
+}
+
+.rotate {
+  height: 140px;
+  white-space: nowrap;
+}
+
+.rotate > div {
+  transform:
+    rotate(-90deg);
+  width: 15px;
+}
+
+.cards-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+a.card {
+    background: #ccc;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    border-radius: 7px;
+    padding: 1px 4px;
+}
+
+a.played {
+    background: grey;
+    color: white;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom:solid 2px  #eaeaea;
+    border-right: solid 2px #eaeaea;
+}
+
+.active-row {
+    background: lightblue;
+}
+
+#add-a-round {
+    margin: 4px;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="notes">
+    <ul>
+        <li>Deal 8 cards</li>
+        <li>Play a card on an expedition or discard, then draw</li>
+        <li>Less than 20 points in an expedition loses points</li>
+        <li>Playing 8 cards on an expedition gets a 20 point bonus</li>
+    </ul>
+</div>
+<table border=1>
+<thead>
+    <tr>
+        <th><span class="player-name" data-player="1">Brendon</span></th>
+        <th><span class="player-name" data-player="2">Chelsea</span></th>
+    </tr>
+</thead>
+<tbody id="scoring"></tbody>
+<tfoot>
+    <tr>
+        <th><span class="player-name" data-player="1">Player 1</span> Total:
+            <span id="player-1-total">0</span></th>
+        <th><span class="player-name" data-player="2">Player 2</span> Total:
+            <span id="player-2-total">0</span></th>
+    </tr>
+</tfoot>
+</table>
+
+<button id="add-a-round">Add a round</button>
+<script type="text/javascript">
+var round = 0;
+var colors = ["Yellow", "Blue", "White", "Green", "Red"];
+
+function updatePlayerName(playerId) {
+    var newName = prompt("Enter Player " + playerId + " Name:");
+    if (newName != null && newName.length > 0) {
+        $('.player-name[data-player="' + playerId + '"]').text(newName);
+    }
+}
+
+function getCardHtml(type, label) {
+    return '<a title="card" class="card ' + type + '">' + label + '</a>';
+}
+
+function getPlayerColorRowHtml(playerRoundRow, playerColumn) {
+    var color = colors[playerRoundRow];
+    var rowNum = ((round - 1) * 5) + playerRoundRow;
+    // TODO: add row "coordinates" for cursor navigation based on round -1 * 5 + num rows here
+    var html = '<tr class="player-color-row" data-row-num="' + rowNum + '" data-column-num="' + playerColumn + '"><th class="label">' + color + ':</th><td class="cards-wrapper">';
+    for (var i = 0; i < 3; i++) {
+        html += getCardHtml('investment', 'I');
+    }
+    for (var i = 2; i < 11; i++) {
+        html += getCardHtml('points', i);
+    }
+    html += '</td><td class="player-color-score">0</td><tr>';
+    return html;
+}
+
+function getRoundHtml(playerIndex) {
+    var html = "";
+    for (var i = 0; i < colors.length; i++) {
+        html += getPlayerColorRowHtml(i, playerIndex);
+    }
+    html += '<tr><th colspan="2" class="label">Round Total ' + round + ':</th><th class="round-total">0</th></tr>';
+    return html;
+}
+
+function addRound() {
+    round++;
+    var roundId = 'round-' + round;
+    var html = '<tr id="' + roundId + '" class="single-round">';
+    for (var playerId = 1; playerId < 3; playerId++) {
+        html += '<td><table cellspacing="0" cellpadding="3"><tbody class="player-round-score" data-player="' + playerId + '"></tbody></table></td>';
+    }
+    html += '</tr>';
+    $('#scoring').append(html);
+    $('#' + roundId + ' .player-round-score').each(function (playerIndex) {
+        $(this).html(getRoundHtml(playerIndex));
+    });
+    $('#' + roundId + ' a.card').click(function(){
+        $(this).toggleClass("played");
+        calculateRow($(this).closest('tr'));
+    });
+    $('#' + roundId + ' .player-color-row th, #' + roundId + ' .player-color-row td').click(function(){
+        $('.active-row').removeClass('active-row');
+        $(this).closest('.player-color-row').addClass('active-row');
+    });
+}
+
+function calculateTotal() {
+    for (var playerId = 1; playerId < 3; playerId++) {
+        var points = 0;
+        $('.player-round-score[data-player="' + playerId + '"] .round-total').each(function () {
+            points += parseInt($(this).text());
+        });
+        $('#player-' + playerId + '-total').html(points + '');
+    }
+}
+
+function calculateRound($round) {
+    var points = 0;
+    $round.find('.player-color-score').each(function() {
+        points += parseInt($(this).text());
+    });
+    $round.find('.round-total').html(points + '');
+    calculateTotal();
+}
+
+function calculateRow($row) {
+    var totalPlayed = $row.find('.played').length;
+    var $scoreField = $row.find('.player-color-score');
+    var points = 0;
+    if (totalPlayed > 0) {
+        $row.find('.played.points').each(function() {
+            points += parseInt($(this).text());
+        });
+        points -= 20;
+        var multiplier = $row.find('.played.investment').length + 1;
+        points *= multiplier;
+        if (totalPlayed > 7) {
+            points += 20;
+        }
+    }
+    $scoreField.html(points + '');
+    calculateRound($row.closest('.player-round-score'));
+}
+
+function setActivePlayerColor(column, row) {
+    $('.active-row').removeClass('active-row');
+    $('[data-column-num=' + column + '][data-row-num=' + row + ']').addClass('active-row');
+}
+
+$(document).ready(function(){
+    addRound();
+    $(document).keyup(function (event) {
+        // number row keys
+        if ((event.which >= 48 && event.which <= 57) || event.which == 73) {
+            $('.active-row').each(function () {
+                if (event.which == 73 || event.which == 49) {
+                    var investmentCount = $('.active-row .card.investment.played').length + 1;
+                    if (investmentCount > 3) {
+                        investmentCount = 0;
+                    }
+                    $('.active-row .card.investment.played').removeClass('played');
+                    for (var i = 0; i < investmentCount; i++) {
+                        $('.active-row .card.investment').eq(i).addClass('played');
+                    }
+                } else if (event.which >= 48 && event.which <= 57) {
+                    var offset = event.which - 50;
+                    if (offset < 0) {
+                        offset = 8;
+                    }
+                    $('.active-row .card.points').eq(offset).toggleClass('played');
+                }
+            });
+            calculateRow($('.active-row'));
+        }
+        // cursor keys
+        else if (event.which >= 37 && event.which <= 40) {
+            // 40 = down, 38 = up, 37 = left, 39 = right
+            var $activeRow = $('.active-row');
+            var currentColumn = parseInt($activeRow.attr('data-column-num'));
+            var currentRow = parseInt($activeRow.attr('data-row-num'));
+            var lastRow = (round * 5) - 1;
+            if (event.which == 40) {
+                currentRow++;
+            } else if (event.which == 38) {
+                currentRow--;
+            } else if (event.which == 39) {
+                currentColumn++;
+            } else if (event.which == 37) {
+                currentColumn--;
+            }
+
+            if (currentRow > lastRow) {
+                currentRow = 0;
+            } else if (currentRow < 0) {
+                currentRow = lastRow;
+            }
+
+            if (currentColumn > 1) {
+                currentColumn = 0;
+            } else if (currentColumn < 0) {
+                currentColumn = 1;
+            }
+
+            setActivePlayerColor(currentColumn, currentRow);
+        }
+    });
+    $('.player-name').click(function() { updatePlayerName($(this).attr('data-player')); });
+    $('#add-a-round').click(addRound);
+    setActivePlayerColor(0, 0);
+});
+</script>
+</body>
+</html>
