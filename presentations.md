@@ -39,3 +39,4 @@ Date      |Presentation                            |Audience
 2019-10-01|[Prioritizing Change](presentations/2019-10-01-Lansing-DevOps-PrioritizingChange.html)|Lansing DevOps Meetup
 2019-11-05|[Event Driven Adventures in Serverless](presentations/2019-11-05-Lansing-DevOps-EventDriven.html) ([video](https://youtu.be/p9wLGp3Mq8g))|Lansing DevOps Meetup
 2020-02-04|[DevOps A-Z](presentations/2020-02-04-Lansing-DevOps-DevOps_A-Z.html) ([video](https://youtu.be/unQRJ9q0Qr4))|Lansing DevOps Meetup
+2020-06-23|[DevelevatorOps](presentations/2020-06-23-MMAG-DevelevatorOps.html)|Mid-Michigan Agile Group

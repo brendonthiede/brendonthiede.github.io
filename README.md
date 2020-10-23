@@ -38,9 +38,24 @@ source ~/.bash_profile
 gem install jekyll bundler
 ```
 
+### WSL2 w/ Ubuntu
+
+This is not working...
+
+```bash
+sudo apt install ruby
+gem install --user-install jekyll bundler
+RUBY_USER_BIN=~/.gem/ruby/2.5.0/bin
+echo "export PATH=${RUBY_USER_BIN}:\${PATH}" >>~/.profile
+source ~/.profile
+```
+
+It complains about bundler not being available.
+
 ## Running Locally
 
 ```powershell
+bundle install
 bundle exec jekyll serve
 ```
 
