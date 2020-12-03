@@ -43,11 +43,9 @@ gem install jekyll bundler
 This is not working...
 
 ```bash
-sudo apt install ruby
-gem install --user-install jekyll bundler
-RUBY_USER_BIN=~/.gem/ruby/2.5.0/bin
-echo "export PATH=${RUBY_USER_BIN}:\${PATH}" >>~/.profile
-source ~/.profile
+sudo apt-get update
+sudo apt-get install ruby-dev build-essential --fix-missing -y
+sudo gem install jekyll bundler
 ```
 
 It complains about bundler not being available.
