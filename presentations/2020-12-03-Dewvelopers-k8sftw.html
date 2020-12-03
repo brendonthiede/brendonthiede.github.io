@@ -1,0 +1,193 @@
+---
+layout: presentation
+title: "K8s FTW - Dewvelopers"
+image: https://secure.meetupstatic.com/photos/event/4/a/b/4/highres_479719124.jpeg
+---
+<section>
+  <h2>Docker and Kubernetes</h2>
+  <p style="text-align: right;">Dewvelopers
+    <br> December 3rd, 2020</p>
+</section>
+<section>
+  <h3 style="text-align: left;">Brendon Thiede</h3>
+  <ul>
+    <li>DevOps Platform Engineer</li>
+    <li>Automation junkie</li>
+    <li>Constant hacker</li>
+  </ul>
+</section>
+<section>
+  <h3>Docker</h3>
+  <h4>One of many containerization options</h4>
+</section>
+<section>
+  <h3>Containerization</h3>
+  <ul>
+    <li>Process isolation/sandbox</li>
+    <li>Shared kernel</li>
+    <li>Idempotent by default</li>
+  </ul>
+</section>
+<section>
+  <h3>Layers</h3>
+  <h4>Cached, but at a cost</h4>
+  <p>(to varying degrees)</p>
+</section>
+<section>
+  <h3>Base Images</h3>
+  <h4>Excellent reuse</h4>
+</section>
+<section>
+  <h3>Single Process</h3>
+  <h4>Usually...</h4>
+</section>
+<section>
+  <h3>Stages</h3>
+  <h4>Only push what you need</h4>
+</section>
+<section>
+  <h3>Wasteful Example</h3>
+  <pre><code>
+FROM maven:3.6.3-openjdk-11
+
+WORKDIR /var/www/java
+COPY . /var/www/java
+RUN mvn package
+RUN mv spring-boot-app-*.war /app.war
+
+CMD ["/usr/bin/java", "-jar", "/app.war"]
+  </code></pre>
+</section>
+<section>
+  <h3>Better Example</h3>
+  <pre><code>
+FROM maven:3.6.3-openjdk-11 as builder
+
+WORKDIR /tmp/java
+COPY . /tmp/java
+RUN mvn package
+RUN mv spring-boot-app-*.war /app.war
+
+FROM openjdk:11-jre-alpine
+COPY --from=builder /app.war /app.war
+CMD ["/usr/bin/java", "-jar", "/app.war"]
+  </code></pre>
+</section>
+<section>
+  <h3>Single Target OS</h3>
+  <p>Actually build once and deploy everywhere</p>
+</section>
+<section>
+  <h3>Other Considerations:</h3>
+  <ul>
+    <li>Bind mount and Volumes<ul>
+        <li>Mind the file permissions and ownership</li>
+      </ul>
+    </li>
+    <li>Port forwarding</li>
+    <li>Environment variables</li>
+    <li>Container registry options</li>
+  </ul>
+</section>
+<section>
+  <h3>Kubernetes</h3>
+  <p>Collection of APIs focused on<br /><b>Container Orchestration</b></p>
+</section>
+<section>
+  <h3>Kubernetes Architecture</h3>
+  <img src="images/k8s-architecture.svg" alt="Kubernetes architecture" style="height: 100%; background-color: white">
+</section>
+<section>
+  <h3>Common Kubernetes Resources</h3>
+  <img src="images/k8s-resources.svg" alt="Kubernetes resources" style="height: 100%; background-color: white">
+</section>
+<section>
+  <h3>Common Kubernetes Resources</h3>
+  <ul>
+    <li>Namespace - Organizes resources</li>
+    <li>Deployment - Keeps track of a Replica Set and Pod</li>
+    <li>Replica set - Manages scale (number of copies) of the Pod</li>
+    <li>Pod - One or more containers providing the main attraction</li>
+    <li>Service - Exposes a Pod to the rest of Kubernetes</li>
+    <li>Ingress - Exposes a Service outside of Kubernetes</li>
+  </ul>
+</section>
+<section>
+  <h3>Where can the network break?</h3>
+  <ul>
+    <li>Traffic to external load balancer</li>
+    <li>Traffic to worker load balancer</li>
+    <li>Ingress rule</li>
+    <li>Namespace access</li>
+    <li>Pod readiness</li>
+    <li>Connections to other services</li>
+  </ul>
+</section>
+<section>
+  <h3>Creating Resources</h3>
+  <h4>Imperative</h4>
+  <pre><code>
+kubectl create namespace playground
+  </code></pre>
+</section>
+<section>
+  <h3>Creating Resources</h3>
+  <h4>Declarative</h4>
+  <pre><code>
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: playground
+EOF
+  </code></pre>
+</section>
+<section>
+  <h3>Scaling</h3>
+  <ul>
+    <li>Replicas spec<ul>
+        <li>Can be edited on after deployment</li>
+      </ul>
+    </li>
+    <li>Manual scaling</li>
+    <li>Auto-scaling<ul>
+        <li>Needs good readiness probe and "fast" startup</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <h3>Scheduling</h3>
+  <ul>
+    <li>Keep things apart</li>
+    <li>Keep things together<ul>
+        <li>May be a candidate for a side-car</li>
+      </ul>
+    </li>
+    <li>Reserve specific hardware</li>
+    <li>Bring node down for maintenance</li>
+  </ul>
+</section>
+<section>
+  <h3>Scheduling Configuration</h3>
+  <ul>
+    <li>taints and tolerations</li>
+    <li>node/pod affinity and node/pod anti-affinity<ul>
+        <li>These leverage labels and selectors</li>
+      </ul>
+    </li>
+    <li>cordon, drain, and uncordon</li>
+  </ul>
+</section>
+<section>
+  <h3>Misc</h3>
+  <ul>
+    <li>Service mesh</li>
+    <li>Cluster federation</li>
+    <li>Distributed tracing</li>
+    <li>GitOps</li>
+    <li>Custom Resource Definitions (CRD)</li>
+    <li>Helm</li>
+    <li>Draft and Tilt</li>
+  </ul>
+</section>
