@@ -41,3 +41,4 @@ Date      |Presentation                            |Audience
 2020-02-04|[DevOps A-Z](presentations/2020-02-04-Lansing-DevOps-DevOps_A-Z.html) ([video](https://youtu.be/unQRJ9q0Qr4))|Lansing DevOps Meetup
 2020-06-23|[DevelevatorOps](presentations/2020-06-23-MMAG-DevelevatorOps.html)|Mid-Michigan Agile Group
 2020-12-03|[K8s FTW(dows)](presentations/2020-12-03-Dewvelopers-k8sftw.html)|Dewvelopers
+2021-01-08|[TLS for K8s with cert-manager](presentations/2021-01-08-cert-manager.html)|CNCF Islamabad
