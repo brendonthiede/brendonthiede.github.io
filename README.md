@@ -16,14 +16,9 @@ Scripted version if you use [Chocolatey](https://chocolatey.org/) (assumes Ruby 
 # As Admin:
 cinst ruby -y
 cinst msys2 -y
-# To be safe, close the prompt and open a fresh admin PowerShell instalce to continue
+# To be safe, close the prompt and open a fresh admin PowerShell instance to continue
 gem install jekyll bundler
-ridk install # choose the appropriate option, probably 3
-```
-
-```powershell
-# From new shell in this directory:
-bundle install
+ridk install # choose the appropriate option to install the development toolchain, probably 3, and then press enter again to exit after it's done
 ```
 
 ### Mac
@@ -38,24 +33,22 @@ source ~/.bash_profile
 gem install jekyll bundler
 ```
 
-### WSL2 w/ Ubuntu
-
-This is not working...
-
-```bash
-sudo apt-get update
-sudo apt-get install ruby-dev build-essential --fix-missing -y
-sudo gem install jekyll bundler
-```
-
-It complains about bundler not being available.
-
 ## Running Locally
+
+Start a new shell if are still in a shell where you ran any of the install/setup actions above, then run the following:
 
 ```powershell
 bundle install
 bundle exec jekyll serve
 ```
+
+If there is an error all the lines of `cannot load such file -- webrick (LoadError)`, you can resolve the dependency with:
+
+```bash
+bundle add webrick
+```
+
+Then try running `bundle exec jekyll serve` again.
 
 ## Upgrading Ruby Gems
 
