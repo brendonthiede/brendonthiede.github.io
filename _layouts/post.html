@@ -7,6 +7,11 @@ layout: default
         <img src="{{ '/assets/img/' | prepend: site.baseurl | append: page.image }}" alt="" class="center" />
       </div>
   {% endif %}
+  {% if page.externalImage %}
+    <div class="featuredImage">
+        <img src="{{ page.externalImage }}" alt="" class="center" />
+      </div>
+  {% endif %}
   <h1 class="postTitle">{{ page.title }}</h1>
   <p class="meta">{{ page.date | date: '%B %d, %Y' }} | <span class="time">{{ page.content | number_of_words | divided_by:180 }}</span> Minute Read</p>
   
@@ -25,6 +30,9 @@ layout: default
       <a class="next{% if page.next.image %} image{% endif %}" href="{{ page.next.url | prepend: site.baseurl }}"><span>{{ page.next.title }}&nbsp;&raquo;</span>
       {% if page.next.image %} 
         <img src="{{ '/assets/img/' | prepend: site.baseurl | append: page.next.image }}" alt="">
+      {% endif %} 
+      {% if page.next.externalImage %} 
+        <img src="{{ page.next.externalImage }}" alt="">
       {% endif %} 
       </a>
     {% endif %} 
