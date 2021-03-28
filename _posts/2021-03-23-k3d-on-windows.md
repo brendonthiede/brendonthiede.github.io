@@ -100,18 +100,127 @@ docker container ls
 
 You should see two containers by default: a k3s instance and the k3d proxy. The k3d proxy is used to route traffic in to the API server, which you can see configured by looking at `~/.kube/config`, where you might see something like `server: https://0.0.0.0:52038`, which would be the same port that Docker shows as routing to port 6443 of the k3d proxy container.
 
-However, the main reason I want to use k3d instead of minikube is that I want to have multiple nodes so that I can realistically test out taints, tolerations, affinity rules, etc. To create a multi-node system, you can delete the previous cluster and recreate it, this time passing values for `--servers` and `--agents`:
+However, the main reason I want to use k3d instead of minikube is that I want to have multiple nodes so that I can realistically test out taints, tolerations, affinity rules, etc. To create a multi-node system, you can delete the previous cluster and recreate it, this time passing values for `--servers` and `--agents`. While we're at it, we should also set up some port forwarding to be able to interact with we workloads:
 
 ```powershell
 # Delete the existing cluster
 k3d cluster delete localk8s
 # Create a new multi-node cluster
-k3d cluster create localk8s --servers 3 --agents 3
+k3d cluster create localk8s --servers 3 --agents 3 --port "8888:80@loadbalancer" --port "8889:443@loadbalancer"
 # Rename the config if needed
 if ( Test-Path ~\.kube\config.k3d* ) { Move-Item ~\.kube\config.k3d* ~\.kube\config -Force }
 # List the Kubernetes nodes
 kubectl get nodes --output wide
+# Look at the "real" containers again (you can see or new port forwarding)
+docker container ls
 ```
+
+Another you could do with k3d, though I'm not going to get into it, is to mount volumes to any combination of the nodes in your cluster. If this is something that you end up needing, a quick web search should set you on your way. And if your configuration starts to get too complex, you may want to consider using a config options file instead of command line arguments.
+
+With the cluster running and ready to forward traffic, we can create a deployment, service, and ingress:
+
+```powershell
+echo "
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ui
+  name: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+      - image: thiedebr/crud-ui:latest
+        name: crud-ui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ui
+  name: ui
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: ui
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - image: thiedebr/crud-api:latest
+        name: crud-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8887
+  selector:
+    app: api
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: localhost
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ui
+            port:
+              number: 80
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 80
+" | kubectl apply -f -
+```
+
+Using the `echo` alias for `Write-Output` actually allows this command to work the same in PowerShell and Bash. To test the result of what we've done, go to http://localhost:8888 in you browser and you should see "Hello Kubernetes" displayed.
 
 ## Configuring Bash
 
