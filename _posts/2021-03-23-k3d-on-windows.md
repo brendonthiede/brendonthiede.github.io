@@ -117,7 +117,7 @@ docker container ls
 
 Another you could do with k3d, though I'm not going to get into it, is to mount volumes to any combination of the nodes in your cluster. If this is something that you end up needing, a quick web search should set you on your way. And if your configuration starts to get too complex, you may want to consider using a config options file instead of command line arguments.
 
-With the cluster running and ready to forward traffic, we can create a deployment, service, and ingress:
+With the cluster running and ready to forward traffic, we can create a deployment, service, and ingress (from my [example of making a multi-node cluster with Multipass](https://github.com/brendonthiede/brendon-k8s-demo)):
 
 ```powershell
 echo "
@@ -222,6 +222,20 @@ spec:
 
 Using the `echo` alias for `Write-Output` actually allows this command to work the same in PowerShell and Bash. To test the result of what we've done, go to http://localhost:8888 in you browser and you should see "Hello Kubernetes" displayed.
 
+When you are done using your cluster, it is probably best to stop it:
+
+```powershell
+k3d cluster stop localk8s
+```
+
+And then to start it back up later:
+
+```powershell
+k3d cluster start localk8s
+```
+
+If you happen to restart your machine without stopping the cluster, it may end up in an odd state. If this happens, you can try to stop then start the cluster. If that doesn't work you may have to delete the cluster and start again.
+
 ## Configuring Bash
 
 As much as I actually prefer several of the features and principles in PowerShell over Bash, there are going to be a lot more examples using Bash scripts, and there will also be some apps that only run on Linux, therefore you will need to run them from WSL. Here is my recommendation for setting things up for WSL2 using Ubuntu 20.04. Just fire up an Ubuntu shell and follow along.
@@ -270,3 +284,8 @@ And now you can verify everything with a list of what is currently in the cluste
 ```bash
 kubectl get all --all-namespaces
 ```
+
+## Resources
+
+* [k3d Homepage](https://k3d.io/)
+* [My example of making a Kubernetes cluster with Multipass](https://github.com/brendonthiede/brendon-k8s-demo)
