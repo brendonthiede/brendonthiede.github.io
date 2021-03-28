@@ -3,7 +3,7 @@ layout: post
 title:  "Configuring Apache as a Reverse Proxy on Mac"
 date:   2021-02-22T05:25:33.611Z
 categories: devops
-image: network.png
+image: network-switch.jpg
 ---
 Sometimes it may be useful to use your own local certificate for certain testing, or you may want to present multiple sites as own domain to deal with cross origin resource sharing. These are some of the problems that can be solved with a reverse proxy. This explanation takes the perspective of a Mac user running the default Apache web server ([instructions for basic setup](https://discussions.apple.com/docs/DOC-250001766)). There will be three sections: Virtual Hosts, TLS, and Reverse Proxy.
 
