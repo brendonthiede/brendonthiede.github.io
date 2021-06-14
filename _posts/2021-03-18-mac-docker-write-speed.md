@@ -3,7 +3,7 @@ layout: post
 title:  "Docker Write Speeds on Mac"
 date:   2021-03-18T17:19:16.084Z
 categories: devops
-image: hard-drive.png
+image: hard-drive.jpg
 ---
 I was noticing some slowness while using bind mounts in Docker on my Mac. Here are some observations that I made.
 
