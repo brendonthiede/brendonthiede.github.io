@@ -7,7 +7,7 @@ image: hard-drive.png
 ---
 I was noticing some slowness while using bind mounts in Docker on my Mac. Here are some observations that I made.
 
-h2. Direct Bind Mount Interaction
+## Direct Bind Mount Interaction
 
 ```bash
 $ time dd if=/dev/zero of=/shared-volume/speedtest bs=1024 count=100000
@@ -20,7 +20,7 @@ user	0m0.088s
 sys	0m3.900s
 ```
 
-h2. Writing to Docker File System
+## Writing to Docker File System
 
 ```bash
 $ time dd if=/dev/zero of=/tmp/speedtest bs=1024 count=100000
@@ -33,7 +33,7 @@ user	0m0.020s
 sys	0m0.261s
 ```
 
-h2. Writing to Docker File System, then mv to Bind Mount
+## Writing to Docker File System, then mv to Bind Mount
 
 ```bash
 $ time bash -c "dd if=/dev/zero of=/tmp/speedtest bs=1024 count=100000 && mv /tmp/speedtest /shared-volume/speedtest"
@@ -46,6 +46,6 @@ user	0m0.014s
 sys	0m0.395s
 ```
 
-h2. Summary
+## Summary
 
 After these observations I will start doing as much I/O heavy work outside of any bind mounts and then move any files that need to be available outside of the container to the bind mount after the fact.
