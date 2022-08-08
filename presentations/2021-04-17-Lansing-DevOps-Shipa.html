@@ -1,0 +1,83 @@
+---
+layout: presentation
+title: "Looking at Shipa Pro"
+image: https://secure.meetupstatic.com/photos/event/4/a/b/4/highres_479719124.jpeg
+---
+<section>
+  <h2>Looking at Shipa Pro</h2>
+  <p style="text-align: right;">Lansing DevOps Meetup
+    <br> March 29th, 2021</p>
+</section>
+<section>
+  <h3 style="text-align: left;">Brendon Thiede</h3>
+  <ul>
+    <li>DevOps Platform Engineer</li>
+    <li>Automation Junky</li>
+    <li>Complexity Simplifier</li>
+  </ul>
+</section>
+<section>
+  <h2>Shipa</h2>
+  <ul>
+    <li>Organizes, controls, and simplifies Kubernetes</li>
+    <li>Amazing community engagement</li>
+  </ul>
+</section>
+<section>
+  <h2>Frameworks</h2>
+  <ul>
+    <li>Per cluster</li>
+    <li>Per namespace</li>
+  </ul>
+</section>
+<section>
+  <h2>Applications</h2>
+  <ul>
+    <li>Platform</li>
+    <li>Framework</li>
+    <li>Team</li>
+    <li>Plan</li>
+  </ul>
+</section>
+<section>
+  <h2>Enable Hyper-V</h2>
+  <p>As administrator</p>
+  <code>
+    <pre>
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+    </pre>
+  </code>
+</section>
+<section>
+  <h2>Creating the Cluster</h2>
+  <code>
+    <pre>
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+minikube start --kubernetes-version='v1.18.2' --memory='5gb' --disk-size='20gb'
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+k3d cluster create shipa-local --agents 3 --servers 3 --k3s-server-arg '--no-deploy servicelb'
+    </pre>
+  </code>
+</section>
+<section>
+  <h2>Installing Shipa</h2>
+  <code>
+    <pre>
+NAMESPACE=shipa-system
+kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+helm repo add shipa-charts https://shipa-charts.storage.googleapis.com
+helm install shipa shipa-charts/shipa -n $NAMESPACE  --timeout=1000s --set 'auth.adminUser=admin@shipa.io' --set 'auth.adminPassword=SuperS3cret!'
+    </pre>
+  </code>
+  <p>It is normal for this to take a couple minutes... it's doing <i>a lot</i>...</p>
+</section>
+<section>
+  <h2>Deploying an App</h2>
+  <code>
+    <pre>
+shipa app deploy --app crud-api ${WINHOME}/source/repos/brendon-k8s-demo/app/api/
+# Optionally: --steps=5 --step-interval=30s --step-weight=20
+    </pre>
+  </code>
+</section>
