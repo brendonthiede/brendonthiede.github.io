@@ -9,7 +9,7 @@ If want an easy way to navigate your command history as you type in PowerShell, 
 
 To update to the latest version of PSReadLine, close all instances of PowerShell, including in VS Code, etc., then open an Administrator instance of Command Prompt (not PowerShell) and run:
 
-```cmd
+```powershell
 pwsh -noprofile -command "Install-Module PSReadLine -Force -SkipPublisherCheck -AllowPrerelease"
 ```
 
