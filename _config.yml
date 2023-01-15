@@ -18,7 +18,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   DevOps concepts in bite size chunks.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-defaultLogo: ChelseaAndBrendon.jpg
+defaultLogo: i-am-devops.png
 
 social:
   twitter: thiedebr
