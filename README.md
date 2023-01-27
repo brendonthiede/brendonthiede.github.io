@@ -17,8 +17,8 @@ Scripted version if you use [Chocolatey](https://chocolatey.org/) (assumes Ruby 
 cinst ruby -y
 cinst msys2 -y
 # To be safe, close the prompt and open a fresh admin PowerShell instance to continue
-gem install jekyll bundler
 ridk install # choose the appropriate option to install the development toolchain, probably 3, and then press enter again to exit after it's done
+gem install jekyll bundler
 ```
 
 ### Mac
