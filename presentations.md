@@ -43,3 +43,4 @@ Date      |Presentation                            |Audience
 2020-12-03|[K8s FTW(dows)](presentations/2020-12-03-Dewvelopers-k8sftw.html)|Dewvelopers
 2021-01-08|[TLS for K8s with cert-manager](presentations/2021-01-08-cert-manager.html)|CNCF Islamabad
 2021-04-17|[Shipa Overview](presentations/2021-04-17-Lansing-DevOps-Shipa.html)|Lansing DevOps Meetup
+2023-02-13|[PKI Fundamentals](presentations/2023-02-13-TechTalk-PKIFundamentals.html)|Filevine Tech Talk
