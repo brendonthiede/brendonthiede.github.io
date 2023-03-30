@@ -44,3 +44,4 @@ Date      |Presentation                            |Audience
 2021-01-08|[TLS for K8s with cert-manager](presentations/2021-01-08-cert-manager.html)|CNCF Islamabad
 2021-04-17|[Shipa Overview](presentations/2021-04-17-Lansing-DevOps-Shipa.html)|Lansing DevOps Meetup
 2023-02-13|[PKI Fundamentals](presentations/2023-02-13-TechTalk-PKIFundamentals.html)|Filevine Tech Talk
+2023-03-30|[Networking, or Not Working?](presentations/2023-03-30-TechTalk-NetworkingNotWorking.html)|Filevine Tech Talk
