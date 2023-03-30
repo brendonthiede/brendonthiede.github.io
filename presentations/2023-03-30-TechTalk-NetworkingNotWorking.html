@@ -1,0 +1,128 @@
+---
+layout: presentation
+title: "Networking, or Not Working?"
+image: /assets/img/NetworkingNotWorkingTitle.png
+---
+<section>
+  <h2>Networking, or Not Working?</h2>
+  <p style="text-align: right;">Filevine Tech Talk
+    <br> March 30th, 2023
+  </p>
+</section>
+<section>
+  <img src="./images/microservice-chosen.jpg" alt="Microservices are hard to debug">
+</section>
+<section>
+  <h2>OSI Model</h2>
+  <ol>
+    <li>Physical Layer</li>
+    <li>Data Link Layer</li>
+    <li>Network Layer</li>
+    <li>Transport Layer</li>
+    <li>Session Layer</li>
+    <li>Presentation Layer</li>
+    <li>Application Layer</li>
+  </ol>
+  <p>Please Do Not Trust Senator Palpatine, Anakin</p>
+</section>
+<section>
+  <h2>Layer 1: Physical Layer</h2>
+  <ul>
+    <li>Transmission of raw bits</li>
+    <li>Electrical, optical, or radio signals</li>
+    <li>Physical media</li>
+    <li>Wires, cables, fiber, radio waves</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 2: Data Link Layer</h2>
+  <ul>
+    <li>Transmission of frames</li>
+    <li>Frames are packets of data</li>
+    <li>Frames are sent over a physical medium</li>
+    <li>Frames are addressed to a specific device (MAC address)</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 3: Network Layer</h2>
+  <ul>
+    <li>Transmission of packets</li>
+    <li>Packets are frames with additional information</li>
+    <li>Packets are sent over a physical medium</li>
+    <li>Packets are addressed to a specific device (IP address with NAT)</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 4: Transport Layer</h2>
+  <ul>
+    <li>Transmission of segments</li>
+    <li>Segments are packets with additional information</li>
+    <li>Segments are sent over a physical medium</li>
+    <li>Segments are addressed to a specific device (IP address and port number)</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 5: Session Layer</h2>
+  <ul>
+    <li>Establishing and maintaining a connection</li>
+    <li>Establishing a connection</li>
+    <li>Terminating a connection</li>
+    <li>Resuming a connection</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 6: Presentation Layer</h2>
+  <ul>
+    <li>Encoding and decoding data</li>
+    <li>Encryption</li>
+    <li>Compression</li>
+    <li>Conversion</li>
+  </ul>
+</section>
+<section>
+  <h2>Layer 7: Application Layer</h2>
+  <ul>
+    <li>Transmission of application data</li>
+    <li>HTTP</li>
+    <li>FTP</li>
+    <li>SSH</li>
+  </ul>
+</section>
+<section>
+  <img src="https://www.dnsstuff.com/wp-content/uploads/2019/08/network-topology-types-1024x536.png" alt="Network topologies">
+  <small>
+    <a href="https://www.dnsstuff.com/what-is-network-topology">https://www.dnsstuff.com/what-is-network-topology</a>
+  </small>
+</section>
+<section>
+  <img src="https://www.cyberciti.biz/media/new/cms/2017/04/dns.jpg" alt="DNS Haiku">
+</section>
+<section>
+  <img src="https://miro.medium.com/v2/resize:fit:828/format:webp/1*K_EttppoSnzla46m-ZkscA.jpeg" alt="Tech words don't solve problems">
+</section>
+<section>
+  <h2>Kubernetes</h2>
+  <ul>
+    <li>Container-to-Container<ul><li>namespace != namespace</li></ul></li>
+    <li>Pod-to-Pod</li>
+    <li>Pod-to-Service</li>
+    <li>Internet-to-Service</li>
+  </ul>
+</section>
+<section>
+  <h2>Kubernetes Dashboard</h2>
+  <ol>
+    <li>SSH tunnel to Pi cluster</li>
+    <li>kubectl proxy to expose API server</li>
+    <li>Service</li>
+    <li>Pod</li>
+    <li>Container</li>
+    <li>App calls</li>
+  </ul>
+</section>
+<section>
+  <h2>Demo</h2>
+</section>
+<section>
+  <h2>Questions?</h2>
+</section>
