@@ -57,3 +57,7 @@ In order to upgrade the Ruby Gems used by Jekyll, run the following:
 ```powershell
 bundle update
 ```
+
+## Reveal JS
+
+Reveal JS is used to share presentations. To update the Reveal JS version, copy the contents of [https://github.com/hakimel/reveal.js/tree/master/dist](https://github.com/hakimel/reveal.js/tree/master/dist) into the `presentations\revealjs` folder.
