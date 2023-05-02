@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sudo yum install -y bash-completion openssl >/dev/null 2>&1
+source <(kubectl completion bash)
+source <(helm completion bash)
