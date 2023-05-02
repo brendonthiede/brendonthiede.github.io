@@ -4,7 +4,6 @@ sudo yum install -y bash-completion openssl >/dev/null 2>&1
 source <(kubectl completion bash)
 source <(helm completion bash)
 
-# TODO: add source of each file in "${HOME}/.bash_completion.d"
 for completion_file in "${HOME}/.bash_completion.d"/*; do
     source "${completion_file}"
 done
