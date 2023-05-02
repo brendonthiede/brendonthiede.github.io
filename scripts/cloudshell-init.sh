@@ -4,9 +4,9 @@
 
 HAS_CHANGES="false"
 
-ORIGINAL_CHECKSUM="$(md5sum ~/.cloudshell_profile | awk '{print $1}')"
-curl -sSLo ~/.cloudshell_profile https://raw.githubusercontent.com/brendonthiede/brendonthiede.github.io/master/scripts/.cloudshell_profile
-NEW_CHECKSUM="$(md5sum ~/.cloudshell_profile | awk '{print $1}')"
+ORIGINAL_CHECKSUM="$(md5sum "${HOME}/.cloudshell_profile" | awk '{print $1}')"
+curl -sSLo "${HOME}/.cloudshell_profile" https://raw.githubusercontent.com/brendonthiede/brendonthiede.github.io/master/scripts/.cloudshell_profile
+NEW_CHECKSUM="$(md5sum "${HOME}/.cloudshell_profile" | awk '{print $1}')"
 
 if [[ "${ORIGINAL_CHECKSUM}" != "${NEW_CHECKSUM}" ]]; then
     HAS_CHANGES="true"
@@ -29,23 +29,21 @@ if [[ ! -f "${HOME}/.local/bin/helm" ]]; then
     HAS_CHANGES="true"
 fi
 
-if ! grep 'source ~/\.cloudshell_profile' ~/.bash_profile >/dev/null; then
-    echo 'source ~/.cloudshell_profile' >>~/.bash_profile
+if ! grep 'source ~/\.cloudshell_profile' "${HOME}/.bash_profile" >/dev/null; then
+    echo 'source ~/.cloudshell_profile' >>"${HOME}/.bash_profile"
     HAS_CHANGES="true"
 fi
 
 mkdir -p "${HOME}/.local/bin"
 
 if [[ ! -f "${HOME}/.local/bin/rdcli" ]]; then
-    npm install --prefix ~/ redis-cli
-    ln -s ~/node_modules/redis-cli/bin/rdcli ~/.local/bin/rdcli
+    npm install --prefix "${HOME}/ redis-cli"
+    ln -s "${HOME}/node_modules/redis-cli/bin/rdcli" "${HOME}/.local/bin/rdcli"
     HAS_CHANGES="true"
 fi
 
 if [[ "${HAS_CHANGES}" == "true" ]]; then
-    echo "Changes detected. Restarting shell..."
-    exec bash
-    exit
+    echo "Changes detected. Restart the shell to apply changes."
 else
     echo "No changes detected."
 fi
