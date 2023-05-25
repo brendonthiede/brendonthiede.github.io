@@ -42,10 +42,18 @@ bundle install
 bundle exec jekyll serve
 ```
 
-If there is an error all the lines of `cannot load such file -- webrick (LoadError)`, you can resolve the dependency with:
+If there is an error along the lines of `cannot load such file -- webrick (LoadError)`, you can resolve the dependency with:
 
 ```bash
 bundle add webrick
+```
+
+Then try running `bundle exec jekyll serve` again.
+
+If there is an error mentioning `Error:  Too many open files - Failed to initialize inotify: the user limit on the total number of inotify instances has been reached.`, in Bash, you can fix this with:
+
+```bash
+echo 256 | sudo tee /proc/sys/fs/inotify/max_user_instances
 ```
 
 Then try running `bundle exec jekyll serve` again.
