@@ -4,12 +4,54 @@ title: "Docker's Layers"
 image: /assets/img/dockerlayers.png
 ---
 <section>
-  <img src="/assets/img/dockerlayers.png" alt="Docker's Layers">
+  <img src="/assets/img/dockerlayers.png" alt="Docker's Layers" onclick="playPauseAudio()">
+  <audio id="myGuy"
+    src="http://www.classicgaming.cc/classics/dragons-lair/files/sounds/music-Dragons-Lair-3d-Hes-My-Guy.mp3"></audio>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <p>
+    <span id="pauseAudioButton" style="display: none;" class="fa fa-pause" onclick="playPauseAudio()"></span>
+    <span id="playAudioButton" class="fa fa-play" onclick="playPauseAudio()"></span>
+    <span class="fa fa-stop" onclick="stopAudio()"></span>
+  </p>
+  <script>
+    var nextTrack = "http://www.classicgaming.cc/classics/dragons-lair/files/sounds/music-Koto-Dragons-Legend-Radio-Edit.mp3"
+    var audio = document.getElementById("myGuy");
+    var pauseAudioButton = document.getElementById("pauseAudioButton");
+    var playAudioButton = document.getElementById("playAudioButton");
+
+    function pauseAudio() {
+      audio.pause();
+      pauseAudioButton.style.display = "none";
+      playAudioButton.style.display = "inline";
+    }
+
+    function playPauseAudio() {
+      if (audio.paused) {
+        audio.play();
+        pauseAudioButton.style.display = "inline";
+        playAudioButton.style.display = "none";
+      } else {
+        pauseAudio();
+      }
+    }
+
+    function stopAudio() {
+      pauseAudio();
+      audio.currentTime = 0;
+    }
+
+    audio.addEventListener("ended", function () {
+      audio.src = nextTrack;
+      audio.load();
+      audio.play();
+    });
+
+  </script>
 </section>
 <section>
   <h2>Docker's Layers</h2>
   <p style="text-align: right;">Filevine Tech Talk
-    <br> May 24th, 2023
+    <br> May 25th, 2023
   </p>
 </section>
 <section>
@@ -48,7 +90,9 @@ image: /assets/img/dockerlayers.png
 <section>
   <h3>Principles in practice</h3>
   <p>Demo</p>
-  <p><small><a href="https://github.com/brendonthiede/dockers-layers">https://github.com/brendonthiede/dockers-layers</a></small></p>
+  <p><small><a
+        href="https://github.com/brendonthiede/dockers-layers">https://github.com/brendonthiede/dockers-layers</a></small>
+  </p>
 </section>
 <section>
   <h3>Questions?</h3>
