@@ -7,7 +7,6 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 $INSTALLED = (choco list)
 $TOOLS = ""
-$INSTALLING_CHROME = $false
 
 if (-NOT (Get-Command npm -ErrorAction SilentlyContinue)) {
     $TOOLS += " nodejs"
@@ -15,7 +14,6 @@ if (-NOT (Get-Command npm -ErrorAction SilentlyContinue)) {
 
 if (-NOT (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe")) {
     $TOOLS += " googlechrome"
-    $INSTALLING_CHROME = $true
 }
 
 if (($INSTALLED | Select-String notepadplusplus).Length -eq 0) {
@@ -37,12 +35,14 @@ if (($INSTALLED | Select-String sql-server-management-studio).Length -eq 0) {
 $CHOCO_COMMAND = "choco install -y" + $TOOLS + " --ignore-checksums"
 
 Invoke-Expression $CHOCO_COMMAND
+Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+refreshenv
+
+if (-NOT (Get-Command rdcli -ErrorAction SilentlyContinue)) {
+    npm install -g redis-cli
+}
 
 # Download https://raw.githubusercontent.com/brendonthiede/brendonthiede.github.io/master/scripts/Get-DbCreds.ps1 and add it to the path, then run it
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/brendonthiede/brendonthiede.github.io/master/scripts/Get-DbCreds.ps1 -OutFile Get-DbCreds.ps1
 
 ./Get-DbCreds.ps1
-
-if ($INSTALLING_CHROME) {
-    C:\Program Files\Google\Chrome\Application\chrome.exe --skip-setup
-}
