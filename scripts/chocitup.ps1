@@ -12,6 +12,14 @@ if (-NOT (Get-Command npm -ErrorAction SilentlyContinue)) {
     $TOOLS += " nodejs"
 }
 
+# if npm roaming directory isn't in the path, add it
+$NPM_ROAMING = (Split-Path -Path $(npm root -g) -Parent)
+if (-NOT ($env:Path -like "*$NPM_ROAMING*")) {
+    $env:Path += ";$NPM_ROAMING"
+    # persist the path change to user environment variables
+    [Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::User)
+}
+
 if (-NOT (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe")) {
     $TOOLS += " googlechrome"
 }
