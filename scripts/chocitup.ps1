@@ -40,11 +40,16 @@ if (($INSTALLED | Select-String sql-server-management-studio).Length -eq 0) {
     $TOOLS += " sql-server-management-studio"
 }
 
-$CHOCO_COMMAND = "choco install -y" + $TOOLS + " --ignore-checksums"
+if ($TOOLS.Length -eq 0) {
+    Write-Host "All chocolatey packages are already installed!"
+}
+else {
+    $CHOCO_COMMAND = "choco install -y" + $TOOLS + " --ignore-checksums"
 
-Invoke-Expression $CHOCO_COMMAND
-Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-refreshenv
+    Invoke-Expression $CHOCO_COMMAND
+    Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+    refreshenv
+}
 
 if (-NOT (Get-Command rdcli -ErrorAction SilentlyContinue)) {
     npm install -g redis-cli

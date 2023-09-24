@@ -46,3 +46,4 @@ Date      |Presentation                            |Audience
 2023-02-13|[PKI Fundamentals](presentations/2023-02-13-TechTalk-PKIFundamentals.html)|Filevine Tech Talk
 2023-03-30|[Networking, or Not Working?](presentations/2023-03-30-TechTalk-NetworkingNotWorking.html)|Filevine Tech Talk
 2023-05-25|[Docker's Layers](presentations/2023-05-25-TechTalk-MobysLair.html)|Filevine Tech Talk
+2023-08-30|[Critical Thinking & Problem Solving](presentations/2023-08-30-GLTL-CriticalThinking.html)|GLTL
