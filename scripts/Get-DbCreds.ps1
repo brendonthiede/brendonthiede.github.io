@@ -1,4 +1,8 @@
-$DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\Filevine.WindowsService.FilevineService\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\Filevine.Data.EF.dll.config"
+if (Test-Path -Path "C:\fv\*\*\DbUp") {
+    $DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\DbUp\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\FVDbUp.exe.config"
+} else {
+    $DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\Filevine.WindowsService.FilevineService\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\Filevine.Data.EF.dll.config"
+}
 
 [xml]$xml = Get-Content -Path $DBConfig
 

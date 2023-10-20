@@ -40,6 +40,14 @@ if (($INSTALLED | Select-String sql-server-management-studio).Length -eq 0) {
     $TOOLS += " sql-server-management-studio"
 }
 
+if (($INSTALLED | Select-String debugdiagnostictool).Length -eq 0) {
+    $TOOLS += " debugdiagnostictool"
+}
+
+if (($INSTALLED | Select-String sysinternals).Length -eq 0) {
+    $TOOLS += " sysinternals"
+}
+
 if ($TOOLS.Length -eq 0) {
     Write-Host "All chocolatey packages are already installed!"
 }
