@@ -8,16 +8,24 @@ Jekyll blog using [Long Haul theme](http://github.com/brianmaierjr/long-haul)
 
 ### Windows
 
+Last tested on 2024-02-03 with Ruby 3.2.3, which required using `rbenv install 3.2.2-1` to install the correct version of Ruby after following the [rbenv for windows](https://github.com/ccmywish/rbenv-for-windows?tab=readme-ov-file#readme) installation steps.
+
 Notes are at [2018-03-26-try-again.markdown](https://brendonthiede.github.io/devops/2018/03/27/try-again.html)
 
 Scripted version if you use [Chocolatey](https://chocolatey.org/) (assumes Ruby 2.6 is still the current version):
 
 ```powershell
 # As Admin:
-cinst ruby -y
+cinst 7zip -y
 cinst msys2 -y
+
+# You should install rbenv using the instructions at https://github.com/ccmywish/rbenv-for-windows?tab=readme-ov-file#readme
+
 # To be safe, close the prompt and open a fresh admin PowerShell instance to continue
+rbenv install 3.2.2-1
 ridk install # choose the appropriate option to install the development toolchain, probably 3, and then press enter again to exit after it's done
+# change to this directory
+rbenv local 3.2.2-1
 gem install jekyll bundler
 ```
 

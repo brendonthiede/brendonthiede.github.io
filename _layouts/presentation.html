@@ -29,7 +29,9 @@
     const controlChannel = new BroadcastChannel('controller');
     let remoteSlide = { indexh: -1, indexv: -1 };
 
+    let autoAdvanceTime = parseInt('0{{ page.auto-advance-time }}');
     Reveal.initialize({
+      autoSlide: autoAdvanceTime,
       dependencies: [
         {
           src: 'plugin/highlight/highlight.js',
