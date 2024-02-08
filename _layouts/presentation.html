@@ -30,8 +30,9 @@
   <script src="plugin/highlight/highlight.js"></script>
 
   <script>
-    const controlChannel = new BroadcastChannel('controller');
-    let remoteSlide = { indexh: -1, indexv: -1 };
+    /***** Pulling custom remote control out in favor of RevealNotes *****/
+    // const controlChannel = new BroadcastChannel('controller');
+    // let remoteSlide = { indexh: -1, indexv: -1 };
 
     let autoAdvanceTime = parseInt('0{{ page.auto-advance-time }}');
     let defaultTiming = false;
@@ -42,25 +43,25 @@
     Reveal.initialize({
       hash: true,
       autoSlide: autoAdvanceTime,
-      autoSlideStoppable: true,
+      autoSlideStoppable: false,
       defaultTiming: defaultTiming,
       plugins: [ RevealHighlight, RevealNotes ],
       history: true
     });
 
-    Reveal.addEventListener('slidechanged', function (event) {
-      if (remoteSlide.indexh !== event.indexh || remoteSlide.indexv !== event.indexv) {
-        remoteSlide = { indexh: -1, indexv: -1 };
-        controlChannel.postMessage({
-          "indexh": event.indexh,
-          "indexv": event.indexv
-        });
-      }
-    });
-    controlChannel.onmessage = function (event) {
-      remoteSlide = event.data;
-      Reveal.slide(event.data.indexh, event.data.indexv);
-    }
+    // Reveal.addEventListener('slidechanged', function (event) {
+    //   if (remoteSlide.indexh !== event.indexh || remoteSlide.indexv !== event.indexv) {
+    //     remoteSlide = { indexh: -1, indexv: -1 };
+    //     controlChannel.postMessage({
+    //       "indexh": event.indexh,
+    //       "indexv": event.indexv
+    //     });
+    //   }
+    // });
+    // controlChannel.onmessage = function (event) {
+    //   remoteSlide = event.data;
+    //   Reveal.slide(event.data.indexh, event.data.indexv);
+    // }
   </script>
 </body>
 
