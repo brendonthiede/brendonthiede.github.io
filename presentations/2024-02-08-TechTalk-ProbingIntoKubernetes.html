@@ -2,12 +2,118 @@
 layout: presentation
 title: "Probing into Kubernetes"
 image: /presentations/images/alien-gloving-up.png
-auto-advance-time-backup: 20000
+auto-advance-time: 20000
 ---
-
-<section style='position: absolute;background-image: url("/presentations/images/alien-gloving-up.png");top: 0px;left: -500px;height: 100%;background-size: cover;background-position: 50% center;display: block;width: 200%;font-size: 125%;'>
-  <h2 style="text-shadow: 4px 2px 2px darkgrey; color: rgb(42, 42, 197);">Probing into Kubernetes</h2>
-  <p style="text-align: right; text-shadow: 2px 2px darkgrey; color: rgb(42, 42, 197); padding-right: 300px; padding-top: 400px">Lightning Talk
+<style>
+  section {
+    height: 100%;
+  }
+</style>
+<section
+  style='position: absolute;background-image: url("/presentations/images/alien-gloving-up.png");top: 0px;left: -500px;height: 100%;background-size: cover;background-position: 50% center;display: block;width: 200%;font-size: 125%;'>
+  <h3 style="text-shadow: 4px 2px 2px darkgrey; color: rgb(42, 42, 197);">Probing into Kubernetes</h3>
+  <p
+    style="text-align: right; text-shadow: 2px 2px darkgrey; color: rgb(42, 42, 197); padding-right: 400px; padding-top: 400px">
+    Lightning Talk
     <br> February 8th, 2024
   </p>
+</section>
+<section>
+  <h2>What is a Kubernetes probe?</h2>
+  <p>Probes are used to determine the status of a container.</p>
+</section>
+<section>
+  <h3>Why do we need probes?</h3>
+  <img src="/presentations/images/containers-in-disrepair.webp" alt="Containers in Disrepair">
+</section>
+<section>
+  <h2>What are the types of probes?</h2>
+  <ul>
+    <li>Liveness</li>
+    <li>Readiness</li>
+    <li>Startup</li>
+  </ul>
+</section>
+<section>
+  <h3>Liveness Probe</h3>
+  <img src="/presentations/images/sleeping-dog.webp" alt="Sleeping Dog">
+</section>
+<section>
+  <h3>Readiness Probe</h3>
+  <img src="/presentations/images/monkey-operator.webp" alt="Monkey Ready to Work">
+</section>
+<section>
+  <h3>Startup Probe</h3>
+  <img src="/presentations/images/grumpy-alien.webp" alt="Grumpy Alien">
+</section>
+<section>
+  <h2>Deployment Rollout</h2>
+  <ol>
+    <li>New replicaset created</li>
+    <li>Startup probe succeeds</li>
+    <li>Liveness probe succeeds</li>
+    <li>Readiness probe succeeds</li>
+    <li>Old replicaset is scaled down</li>
+  </ol>
+</section>
+<section style="height: 100%;">
+  <img src="/presentations/images/phoenix.webp" alt="Phoenix"
+    style="height: 95%; border-radius: 40px; filter: drop-shadow(20px 20px 25px rgb(245, 119, 17))">
+</section>
+<section>
+  <h2>How do we define probes?</h2>
+  <ul>
+    <li>Command</li>
+    <li>HTTP GET</li>
+    <li>TCP Socket</li>
+    <li>gRPC</li>
+  </ul>
+</section>
+<section>
+  <h3>Worst thing: lazy probes</h3>
+  <img src="/presentations/images/sloth.webp" alt="Sloth Relaxing">
+</section>
+<section>
+  <h3>Worst thing: taxing probes</h3>
+  <img src="/presentations/images/panther-biting-itself.webp" alt="Self Inflicted Injury">
+</section>
+<section>
+  <h3>Worst thing: overeager probes</h3>
+  <img src="/presentations/images/scared-squirrel.webp" alt="Scared Squirrel">
+</section>
+<section>
+  <h3>Cascading Failures</h3>
+  <img src="/presentations/images/elephant-and-dominoes.webp" alt="Crime scene">
+</section>
+<section>
+  <h3>Graceful Degradation</h3>
+  <p>
+    &nbsp;
+  </p>
+  <div style="height: 100%; margin: auto;">
+    <p>An escalator can never break
+      <br>It can only become stairs
+    </p>
+    <p style="text-align: right;"><i>Mitch Hedberg</i></p>
+  </div>
+</section>
+<section>
+  <h3>Be Alive</h3>
+  <img src="/presentations/images/zombie-baller.webp" alt="Zombie Baller">
+</section>
+<section>
+  <h3>Be Ready</h3>
+  <img src="/presentations/images/kangaroo-runner.webp" alt="Kangaroo Runner">
+</section>
+<section>
+  <h3>Be Beautifully Broken</h3>
+  <img src="/presentations/images/beautifully-broken.webp" alt="Broken Plate">
+</section>
+<section>
+  <h3>Schedule Your Checkups</h3>
+  <img src="/presentations/images/timepieces.webp" alt="Timepieces">
+</section>
+<section>
+  <h2>Thank you!</h2>
+  <img src="/presentations/images/alien-doctor-goodbye.webp" alt="Good-bye!">
 </section>
