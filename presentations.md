@@ -47,4 +47,5 @@ Date      |Presentation                            |Audience
 2023-03-30|[Networking, or Not Working?](presentations/2023-03-30-TechTalk-NetworkingNotWorking.html)|Filevine Tech Talk
 2023-05-25|[Docker's Layers](presentations/2023-05-25-TechTalk-MobysLair.html)|Filevine Tech Talk
 2023-08-30|[Critical Thinking & Problem Solving](presentations/2023-08-30-GLTL-CriticalThinking.html)|GLTL
-2024-02-08|[Probing into Kubernetes](presentations/2024-02-08-TechTalk-ProbingIntoKubernetes.html)|Filevine Lightning Talk
+2024-02-22|[What the F is going on?](presentations/2024-02-22-TechTalk-WhatTheFIsGoingOn.html)|Filevine Tech Talk
+2024-02-29|[Probing into Kubernetes](presentations/2024-02-29-TechTalk-ProbingIntoKubernetes.html)|Filevine Lightning Talk
