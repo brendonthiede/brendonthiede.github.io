@@ -1,5 +1,5 @@
 if (Test-Path -Path "C:\fv\*\*\Filevine.WindowsService.CalendarSyncService") {
-    $DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\DbUp\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\Filevine.WindowsService.CalendarSyncService.exe.config"
+    $DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\Filevine.WindowsService.CalendarSyncService\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\Filevine.WindowsService.CalendarSyncService.exe.config"
 } elseif (Test-Path -Path "C:\fv\*\*\DbUp") {
     $DBConfig = "$((Get-ChildItem -Directory C:\fv\*\*\DbUp\* | Sort-Object -Property CreationTime -Descending | Select-Object -First 1).FullName)\FVDbUp.exe.config"
 } else {
