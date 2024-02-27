@@ -20,10 +20,6 @@ if (-NOT ($env:Path -like "*$NPM_ROAMING*")) {
     [Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::User)
 }
 
-if (-NOT (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe")) {
-    $TOOLS += " googlechrome"
-}
-
 if (($INSTALLED | Select-String notepadplusplus).Length -eq 0) {
     $TOOLS += " notepadplusplus"
 }
@@ -61,6 +57,10 @@ else {
 
 if (-NOT (Get-Command rdcli -ErrorAction SilentlyContinue)) {
     npm install -g redis-cli
+}
+
+if (-NOT (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe")) {
+    Write-Host "Google Chrome is not installed. To install it, run the following:`nchoco install -y googlechrome --ignore-checksums"
 }
 
 # Download https://raw.githubusercontent.com/brendonthiede/brendonthiede.github.io/master/scripts/Get-DbCreds.ps1 and add it to the path, then run it
