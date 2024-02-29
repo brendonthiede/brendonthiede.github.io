@@ -77,3 +77,12 @@ bundle update
 ## Reveal JS
 
 Reveal JS is used to share presentations. To update the Reveal JS version, copy the contents of [https://github.com/hakimel/reveal.js/tree/master/dist](https://github.com/hakimel/reveal.js/tree/master/dist) into the `presentations\revealjs` folder.
+
+### Printing Reveal JS Presentations
+
+You can add the `?print-pdf` query string to the end of the URL to print the presentation to PDF. For example, if the presentation is at `http://localhost:4000/presentations/2020-01-01-presentation`, you can print it to PDF by visiting `http://localhost:4000/presentations/2020-01-01-presentation?print-pdf`. For some presentations this doesn't work so well, so you can use decktape to print the presentation to PDF instead. From this directory, run the following:
+
+```bash
+npm install
+./node_modules/.bin/decktape generic --key=ArrowDown --key=ArrowRight http://127.0.0.1:4000/presentations/2024-02-29-TechTalk-ProbingIntoKubernetes.html ProbingIntoKubernetes.pdf http://localhost:4000/presentations/2020-01-01-presentation 2020-01-01-presentation.pdf
+```
