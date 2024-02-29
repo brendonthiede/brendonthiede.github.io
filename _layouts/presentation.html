@@ -35,8 +35,11 @@
     // let remoteSlide = { indexh: -1, indexv: -1 };
 
     let autoAdvanceTime = parseInt('0{{ page.auto-advance-time }}');
+    let pacing = parseInt('0{{ page.pacing }}');
     let defaultTiming = false;
-    if (autoAdvanceTime > 0) {
+    if (pacing > 0) {
+      defaultTiming = pacing;
+    } else if (autoAdvanceTime > 0) {
       defaultTiming = autoAdvanceTime / 1000;
     }
 
