@@ -118,6 +118,13 @@
     }
 
     .glue-point {
+      background: url("glue.png") no-repeat .5in .5in;
+      background-size: 1in 1in;
+    }
+
+    #front-6, #back-7 {
+      border-right: none;
+      border-bottom: none;
       text-align: center;
       background-image: repeating-linear-gradient(
         45deg,
@@ -125,24 +132,51 @@
         rgba(0, 0, 0, 0.2) 2px,
         transparent 2px,
         transparent 6px
-      );
-    }
-
-    #front-6, #back-7 {
-      border-right: none;
-      border-bottom: none;
+      ),
+      url("scissors.png");
+      background-size: 4in 4in;
     }
     #front-7, #back-6 {
       border-left: none;
       border-bottom: none;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 6px
+      ),
+      url("scissors.png");
+      background-position: left top, -2in 0;
+      background-size: 4in 4in;
     }
     #front-10, #back-11 {
       border-right: none;
       border-top: none;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 6px
+      ),
+      url("scissors.png");
+      background-position: left top, 0 -2in;
+      background-size: auto, 4in 4in;
     }
     #front-11, #back-10 {
       border-left: none;
       border-top: none;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 6px
+      ),
+      url("scissors.png");
+      background-position: left top, -2in -2in;
+      background-size: auto, 4in 4in;
     }
   </style>
 </head>
