@@ -30,6 +30,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      position: relative;
+      left: 6px; /* Shift slightly to the right */
     }
 
     /* Container for the grid */
@@ -42,14 +45,6 @@
       display: grid;
       grid-template-columns: repeat(4, 2in);
       grid-template-rows: repeat(4, 2in);
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0.2) 2px,
-        transparent 2px,
-        transparent 6px
-      );
-      background-size: auto;
     }
 
     /* Style for each square */
@@ -162,10 +157,13 @@
       background-size: 1in 1in;
     }
 
-    #front-6, #front-7, #front-10, #front-11,
-    #back-6, #back-7, #back-10, #back-11 {
+    .cut-area {
       background: url("scissors.png") no-repeat .5in .5in;
       background-size: 1in 1in;
+    }
+
+    .faded {
+      opacity: 0.25;
     }
 
     @media print {
@@ -180,24 +178,24 @@
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div id="front-1"></div><div id="front-2"></div><div id="front-3" class="glue-point"></div><div id="front-4" class="glue-point"></div>
-      <div id="front-5"></div><div id="front-6"></div><div id="front-7"></div><div id="front-8"></div>
-      <div id="front-9"></div><div id="front-10"></div><div id="front-11"></div><div id="front-12"></div>
-      <div id="front-13" class="glue-point"></div><div id="front-14" class="glue-point"></div><div id="front-15"></div><div id="front-16"></div>
+      <div id="front-1"></div><div id="front-2"></div><div id="front-3" class="glue-point faded"></div><div id="front-4" class="glue-point faded"></div>
+      <div id="front-5"></div><div id="front-6" class="cut-area faded"></div><div id="front-7" class="cut-area faded"></div><div id="front-8"></div>
+      <div id="front-9"></div><div id="front-10" class="cut-area faded"></div><div id="front-11" class="cut-area faded"></div><div id="front-12"></div>
+      <div id="front-13" class="glue-point faded"></div><div id="front-14" class="glue-point faded"></div><div id="front-15"></div><div id="front-16"></div>
     </div>
   </div>
   <div class="screen-only" style="text-align:center; margin-top:1em;">
-    Set printing to Actual size, margins to none, and use double-sided printing
+    Set printing to actual size, margins to none, use double-sided printing, and choose to include background graphics.
   </div>
 
   <!-- Page 2 (Identical to Page 1) -->
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div id="back-4"></div><div id="back-3"></div><div id="back-2"></div><div id="back-1" class="glue-point"></div>
-      <div id="back-8"></div><div id="back-7"></div><div id="back-6"></div><div id="back-5" class="glue-point"></div>
-      <div id="back-12" class="glue-point"></div><div id="back-11"></div><div id="back-10"></div><div id="back-9"></div>
-      <div id="back-16" class="glue-point"></div><div id="back-15"></div><div id="back-14"></div><div id="back-13"></div>
+      <div id="back-4"></div><div id="back-3"></div><div id="back-2"></div><div id="back-1" class="glue-point faded"></div>
+      <div id="back-8"></div><div id="back-7" class="cut-area faded"></div><div id="back-6" class="cut-area faded"></div><div id="back-5" class="glue-point faded"></div>
+      <div id="back-12" class="glue-point faded"></div><div id="back-11" class="cut-area faded"></div><div id="back-10" class="cut-area faded"></div><div id="back-9"></div>
+      <div id="back-16" class="glue-point faded"></div><div id="back-15"></div><div id="back-14"></div><div id="back-13"></div>
     </div>
   </div>
 </body>
