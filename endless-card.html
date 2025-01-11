@@ -42,6 +42,14 @@
       display: grid;
       grid-template-columns: repeat(4, 2in);
       grid-template-rows: repeat(4, 2in);
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      background-size: auto;
     }
 
     /* Style for each square */
@@ -53,39 +61,51 @@
     }
 
     /* Image 1 quarters */
-    #front-1 {
-      background: url("endless-card1.png") no-repeat 0 0;
+    #front-1, #front-2, #front-15, #front-16 {
+      background: url("endless-card1.png") no-repeat;
       background-size: 4in 4in;
+    }
+    #front-1, #front-15 {
+      border-right: none;
+    }
+    #front-2, #front-16 {
+      border-left: none;
+    }
+    #front-1 {
+      background-position: 0 0;
     }
     #front-2 {
-      background: url("endless-card1.png") no-repeat -2in 0;
-      background-size: 4in 4in;
+      background-position: -2in 0;
     }
     #front-15 {
-      background: url("endless-card1.png") no-repeat 0 -2in;
-      background-size: 4in 4in;
+      background-position: 0 -2in;
     }
     #front-16 {
-      background: url("endless-card1.png") no-repeat -2in -2in;
-      background-size: 4in 4in;
+      background-position: -2in -2in;
     }
 
     /* Image 2 quarters */
-    #front-5 {
-      background: url("endless-card2.png") no-repeat 0 0;
+    #front-5, #front-8, #front-9, #front-12 {
+      background: url("endless-card2.png") no-repeat;
       background-size: 4in 4in;
+    }
+    #front-5, #front-8 {
+      border-bottom: none;
+    }
+    #front-9, #front-12 {
+      border-top: none;
+    }
+    #front-5 {
+      background-position: 0 0;
     }
     #front-8 {
-      background: url("endless-card2.png") no-repeat -2in 0;
-      background-size: 4in 4in;
+      background-position: -2in 0;
     }
     #front-9 {
-      background: url("endless-card2.png") no-repeat 0 -2in;
-      background-size: 4in 4in;
+      background-position: 0 -2in;
     }
     #front-12 {
-      background: url("endless-card2.png") no-repeat -2in -2in;
-      background-size: 4in 4in;
+      background-position: -2in -2in;
     }
 
     /* Image 3 quarters (upside down) */
@@ -94,27 +114,47 @@
       background-size: 4in 4in;
       transform: rotate(180deg);
     }
-    #back-2 { background-position: 0 0; }
-    #back-3 { background-position: -2in 0; }
-    #back-14 { background-position: 0 -2in; }
-    #back-15 { background-position: -2in -2in; }
+    #back-2, #back-14 {
+      border-right: none;
+    }
+    #back-3, #back-15 {
+      border-left: none;
+    }
+    #back-2 {
+      background-position: 0 0;
+    }
+    #back-3 {
+      background-position: -2in 0;
+    }
+    #back-14 {
+      background-position: 0 -2in;
+    }
+    #back-15 {
+      background-position: -2in -2in;
+    }
 
     /* Image 4 quarters */
-    #back-9 {
-      background: url("endless-card4.png") no-repeat 0 0;
+    #back-9, #back-4, #back-13, #back-8 {
+      background: url("endless-card4.png") no-repeat;
       background-size: 4in 4in;
+    }
+    #back-9, #back-4 {
+      border-bottom: none;
+    }
+    #back-13, #back-8 {
+      border-top: none;
+    }
+    #back-9 {
+      background-position: 0 0;
     }
     #back-4 {
-      background: url("endless-card4.png") no-repeat -2in 0;
-      background-size: 4in 4in;
+      background-position: -2in 0;
     }
     #back-13 {
-      background: url("endless-card4.png") no-repeat 0 -2in;
-      background-size: 4in 4in;
+      background-position: 0 -2in;
     }
     #back-8 {
-      background: url("endless-card4.png") no-repeat -2in -2in;
-      background-size: 4in 4in;
+      background-position: -2in -2in;
     }
 
     .glue-point {
@@ -122,61 +162,16 @@
       background-size: 1in 1in;
     }
 
-    #front-6, #back-7 {
-      border-right: none;
-      border-bottom: none;
-      text-align: center;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0.2) 2px,
-        transparent 2px,
-        transparent 6px
-      ),
-      url("scissors.png");
-      background-size: 4in 4in;
+    #front-6, #front-7, #front-10, #front-11,
+    #back-6, #back-7, #back-10, #back-11 {
+      background: url("scissors.png") no-repeat .5in .5in;
+      background-size: 1in 1in;
     }
-    #front-7, #back-6 {
-      border-left: none;
-      border-bottom: none;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0.2) 2px,
-        transparent 2px,
-        transparent 6px
-      ),
-      url("scissors.png");
-      background-position: left top, -2in 0;
-      background-size: 4in 4in;
-    }
-    #front-10, #back-11 {
-      border-right: none;
-      border-top: none;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0.2) 2px,
-        transparent 2px,
-        transparent 6px
-      ),
-      url("scissors.png");
-      background-position: left top, 0 -2in;
-      background-size: auto, 4in 4in;
-    }
-    #front-11, #back-10 {
-      border-left: none;
-      border-top: none;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2) 0,
-        rgba(0, 0, 0, 0.2) 2px,
-        transparent 2px,
-        transparent 6px
-      ),
-      url("scissors.png");
-      background-position: left top, -2in -2in;
-      background-size: auto, 4in 4in;
+
+    @media print {
+      .screen-only {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -190,6 +185,9 @@
       <div id="front-9"></div><div id="front-10"></div><div id="front-11"></div><div id="front-12"></div>
       <div id="front-13" class="glue-point"></div><div id="front-14" class="glue-point"></div><div id="front-15"></div><div id="front-16"></div>
     </div>
+  </div>
+  <div class="screen-only" style="text-align:center; margin-top:1em;">
+    Set printing to Actual size, margins to none, and use double-sided printing
   </div>
 
   <!-- Page 2 (Identical to Page 1) -->
