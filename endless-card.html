@@ -51,6 +51,75 @@
       width: 2in;
       height: 2in;
     }
+
+    /* Image 1 quarters */
+    #front-1 {
+      background: url("endless-card1.png") no-repeat 0 0;
+      background-size: 4in 4in;
+    }
+    #front-2 {
+      background: url("endless-card1.png") no-repeat -2in 0;
+      background-size: 4in 4in;
+    }
+    #front-15 {
+      background: url("endless-card1.png") no-repeat 0 -2in;
+      background-size: 4in 4in;
+    }
+    #front-16 {
+      background: url("endless-card1.png") no-repeat -2in -2in;
+      background-size: 4in 4in;
+    }
+
+    /* Image 2 quarters */
+    #front-5 {
+      background: url("endless-card2.png") no-repeat 0 0;
+      background-size: 4in 4in;
+    }
+    #front-8 {
+      background: url("endless-card2.png") no-repeat -2in 0;
+      background-size: 4in 4in;
+    }
+    #front-9 {
+      background: url("endless-card2.png") no-repeat 0 -2in;
+      background-size: 4in 4in;
+    }
+    #front-12 {
+      background: url("endless-card2.png") no-repeat -2in -2in;
+      background-size: 4in 4in;
+    }
+
+    /* Image 3 quarters (upside down) */
+    #back-2, #back-3, #back-14, #back-15 {
+      background: url("endless-card3.png") no-repeat;
+      background-size: 4in 4in;
+      transform: rotate(180deg);
+    }
+    #back-2 { background-position: 0 0; }
+    #back-3 { background-position: -2in 0; }
+    #back-14 { background-position: 0 -2in; }
+    #back-15 { background-position: -2in -2in; }
+
+    /* Image 4 quarters */
+    #back-9 {
+      background: url("endless-card4.png") no-repeat 0 0;
+      background-size: 4in 4in;
+    }
+    #back-4 {
+      background: url("endless-card4.png") no-repeat -2in 0;
+      background-size: 4in 4in;
+    }
+    #back-13 {
+      background: url("endless-card4.png") no-repeat 0 -2in;
+      background-size: 4in 4in;
+    }
+    #back-8 {
+      background: url("endless-card4.png") no-repeat -2in -2in;
+      background-size: 4in 4in;
+    }
+
+    .glue-point {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -58,10 +127,10 @@
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
+      <div id="front-1"></div><div id="front-2"></div><div id="front-3"></div><div id="front-4" class="glue-point"></div>
+      <div id="front-5"></div><div id="front-6"></div><div id="front-7"></div><div id="front-8"></div>
+      <div id="front-9"></div><div id="front-10"></div><div id="front-11"></div><div id="front-12"></div>
+      <div id="front-13" class="glue-point"></div><div id="front-14"></div><div id="front-15"></div><div id="front-16"></div>
     </div>
   </div>
 
@@ -69,10 +138,10 @@
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
+      <div id="back-4"></div><div id="back-3"></div><div id="back-2"></div><div id="back-1"></div>
+      <div id="back-8"></div><div id="back-7"></div><div id="back-6"></div><div id="back-5"></div>
+      <div id="back-12"></div><div id="back-11"></div><div id="back-10"></div><div id="back-9"></div>
+      <div id="back-16"></div><div id="back-15"></div><div id="back-14"></div><div id="back-13"></div>
     </div>
   </div>
 </body>
