@@ -119,6 +119,13 @@
 
     .glue-point {
       text-align: center;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2) 0,
+        rgba(0, 0, 0, 0.2) 2px,
+        transparent 2px,
+        transparent 6px
+      );
     }
   </style>
 </head>
@@ -127,10 +134,10 @@
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div id="front-1"></div><div id="front-2"></div><div id="front-3"></div><div id="front-4" class="glue-point"></div>
+      <div id="front-1"></div><div id="front-2"></div><div id="front-3" class="glue-point"></div><div id="front-4" class="glue-point"></div>
       <div id="front-5"></div><div id="front-6"></div><div id="front-7"></div><div id="front-8"></div>
       <div id="front-9"></div><div id="front-10"></div><div id="front-11"></div><div id="front-12"></div>
-      <div id="front-13" class="glue-point"></div><div id="front-14"></div><div id="front-15"></div><div id="front-16"></div>
+      <div id="front-13" class="glue-point"></div><div id="front-14" class="glue-point"></div><div id="front-15"></div><div id="front-16"></div>
     </div>
   </div>
 
@@ -138,10 +145,10 @@
   <div class="page">
     <div class="grid-container">
       <!-- 16 cells -->
-      <div id="back-4"></div><div id="back-3"></div><div id="back-2"></div><div id="back-1"></div>
-      <div id="back-8"></div><div id="back-7"></div><div id="back-6"></div><div id="back-5"></div>
-      <div id="back-12"></div><div id="back-11"></div><div id="back-10"></div><div id="back-9"></div>
-      <div id="back-16"></div><div id="back-15"></div><div id="back-14"></div><div id="back-13"></div>
+      <div id="back-4"></div><div id="back-3"></div><div id="back-2"></div><div id="back-1" class="glue-point"></div>
+      <div id="back-8"></div><div id="back-7"></div><div id="back-6"></div><div id="back-5" class="glue-point"></div>
+      <div id="back-12" class="glue-point"></div><div id="back-11"></div><div id="back-10"></div><div id="back-9"></div>
+      <div id="back-16" class="glue-point"></div><div id="back-15"></div><div id="back-14"></div><div id="back-13"></div>
     </div>
   </div>
 </body>
