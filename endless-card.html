@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Double-Sided Printable 4x4 Grid</title>
+  <style>
+    /* Set up for printing on Letter paper */
+    @page {
+      size: Letter; /* 8.5in x 11in */
+      margin: 0; /* No margins for perfect alignment */
+    }
+
+    /* Reset body and HTML margins/padding */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Style for the printable pages */
+    .page {
+      /* Each page is exactly Letter size */
+      width: 8.5in;
+      height: 11in;
+
+      /* Avoid overlapping content when printing */
+      page-break-after: always;
+
+      /* Flexbox to center content */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Container for the grid */
+    .grid-container {
+      /* Exact size of the grid: 8 inches by 8 inches */
+      width: 8in;
+      height: 8in;
+
+      /* Use CSS Grid to create 4x4 cells */
+      display: grid;
+      grid-template-columns: repeat(4, 2in);
+      grid-template-rows: repeat(4, 2in);
+    }
+
+    /* Style for each square */
+    .grid-container > div {
+      box-sizing: border-box;
+      border: 1px solid black; /* Black border for visibility */
+      width: 2in;
+      height: 2in;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page 1 -->
+  <div class="page">
+    <div class="grid-container">
+      <!-- 16 cells -->
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <!-- Page 2 (Identical to Page 1) -->
+  <div class="page">
+    <div class="grid-container">
+      <!-- 16 cells -->
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+</body>
+</html>
