@@ -1,0 +1,82 @@
+---
+layout: presentation
+title: "Probing into Kubernetes"
+image: /presentations/images/alien-gloving-up.png
+pacing: 20
+disable-auto-advance-time: 20000
+---
+<style>
+  section {
+    height: 100%;
+  }
+</style>
+<section
+  style='position: absolute;background-image: url("/presentations/images/alien-gloving-up.png");top: 0px;left: -500px;height: 100%;background-size: cover;background-position: 50% center;display: block;width: 200%;font-size: 125%;'>
+  <aside> 
+    
+  </aside>
+  <h3 style="text-shadow: 4px 2px 2px darkgrey; color: rgb(42, 42, 197);">TLS, PKI, DNS and other TLA</h3>
+  <p
+    style="text-align: right; text-shadow: 2px 2px darkgrey; color: rgb(42, 42, 197); padding-right: 400px; padding-top: 400px">
+    Lightning Talk
+    <br> February 29th, 2024
+  </p>
+</section>
+<section>
+  <h2>What is TLS?</h2>
+  <ul>
+    <li>Stands for Transport Layer Security</li>
+    <li>Encrypts data in transit</li>
+    <li>Supersedes SSL</li>
+  </ul>
+</section>
+<section>
+  <h2>What is PKI?</h2>
+  <ul>
+    <li>Stands for Public Key Infrastructure</li>
+    <li>Manages digital certificates</li>
+    <li>Enables secure communication</li>
+</section>
+<section>
+  <h2>What is DNS?</h2>
+  <ul>
+    <li>Stands for Domain Name System</li>
+    <li>Resolves domain names to IP addresses</li>
+    <li>Enables human-readable URLs</li>
+  </ul>
+  <!-- Share common DNS record types -->
+  <!-- Mention ICANN -->
+</section>
+<section>
+  <h2>How do TLS, PKI, and DNS work together?</h2>
+  <ul>
+    <li>TLS uses PKI to secure connections</li>
+    <li>DNS resolves domain names to IP addresses</li>
+    <li>TLS web certificates encrypt traffic and confirm host identity</li>
+  </ul>
+</section>
+<section>
+  <h2>How do TLS certs get validated?</h2>
+  <ul>
+    <li>Root CA signs intermediate CA</li>
+    <li>Intermediate CA signs server certificate</li>
+    <li>Client validates server certificate chain</li>
+  </ul>
+</section>
+<section>
+  <h2>How does signing authority trust you?</h2>
+  <ul>
+    <li>Prove you own the domain by:</li>
+    <ul>
+      <li>Adding a DNS record</li>
+      <li>Uploading a file to the server</li>
+      <li>Responding to an email</li>
+    </ul>
+    <!-- Create diagram for how FV uses CNAME validation for cert auto renewal -->
+    <!-- Create diagram for how ACME works with file validation (Let's Encrypt) -->
+  </ul>
+</section>
+<section>
+  <h2>Thank you!</h2>
+  <img src="/presentations/images/alien-doctor-goodbye.webp" alt="Good-bye!">
+</section>

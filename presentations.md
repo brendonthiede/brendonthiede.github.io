@@ -49,3 +49,4 @@ Date      |Presentation                            |Audience
 2023-08-30|[Critical Thinking & Problem Solving](presentations/2023-08-30-GLTL-CriticalThinking.html)|GLTL
 2024-02-22|[What the F is going on?](presentations/2024-02-22-TechTalk-WhatTheFIsGoingOn.html)|Filevine Tech Talk
 2024-02-29|[Probing into Kubernetes](presentations/2024-02-29-TechTalk-ProbingIntoKubernetes.html) ([video](https://youtu.be/WQO5iFELJXE))|Filevine Lightning Talk
+2025-01-01|[TLS, PKI, DNS, and other TLA](presentations/2025-01-01-TechTalk-TLS_PKI_DNS.html)|Filevine Tech Talk
