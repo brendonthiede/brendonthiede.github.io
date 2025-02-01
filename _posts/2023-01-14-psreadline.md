@@ -5,7 +5,7 @@ date:   2023-01-15T02:06:55.535Z
 categories: devops
 externalImage: https://upload.wikimedia.org/wikipedia/commons/a/af/PowerShell_Core_6.0_icon.png
 ---
-If want an easy way to navigate your command history as you type in PowerShell, you may want to consider [PSReadLine](https://github.com/PowerShell/PSReadLine)
+If you want an easy way to navigate your command history as you type in PowerShell, you may want to consider [PSReadLine](https://github.com/PowerShell/PSReadLine)
 
 To update to the latest version of PSReadLine, close all instances of PowerShell, including in VS Code, etc., then open an Administrator instance of Command Prompt (not PowerShell) and run:
 

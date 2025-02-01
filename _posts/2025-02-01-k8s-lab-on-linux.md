@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kubernetes Lab Setup on Linux"
-date:   2025-02-01T02:06:55.535Z
+date:   2025-02-01T06:11:46.772Z
 categories: devops
 ---
 This is a simple tutorial for setting up a 3 node Kubernetes lab on a Linux machine. This setup is intended for educational purposes and may not be suitable for production environments. This tutorial will specifically use [Mutipass](https://canonical.com/multipass) to create VMs on a Linux host. The host used for this tutorial is Ubuntu 24.04.
@@ -204,3 +204,5 @@ echo "# Use the config below to access the cluster #"
 echo "##############################################"
 sed "s/${K8S_CP_IP}/$(hostname -I | awk '{print $1}')/g" ~/.kube/lab.conf
 ```
+
+The end
