@@ -205,4 +205,30 @@ echo "##############################################"
 sed "s/${K8S_CP_IP}/$(hostname -I | awk '{print $1}')/g" ~/.kube/lab.conf
 ```
 
-The end
+Now you can use this config to access the cluster from your host machine. To set your `KUBECONFIG` environment variable to use this config, run:
+
+```bash
+export KUBECONFIG=~/.kube/lab.conf
+```
+
+### Step 7: Verify the Setup
+
+To verify that your Kubernetes cluster is up and running, you can run a few commands:
+
+```bash
+kubectl get nodes
+kubectl get pods --all-namespaces
+```
+
+### Step 8: Clean Up
+
+When you're done with the lab, you can delete the VMs using:
+
+```bash
+multipass delete k8s-cp k8s-worker1 k8s-worker2
+multipass purge
+```
+
+### Conclusion
+
+This tutorial provided a step-by-step guide to setting up a 3 node Kubernetes lab on a Linux machine using Multipass. You can now experiment with Kubernetes and learn more about container orchestration.
