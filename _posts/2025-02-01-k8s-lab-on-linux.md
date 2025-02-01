@@ -185,7 +185,7 @@ After=default.target
 # We run socat in user mode on port 6443
 # No sudo needed, since 6443 > 1024
 ExecStart=/usr/bin/socat TCP-LISTEN:6443,fork,reuseaddr SYSTEM:"${HOME}/bin/forward-k8s-cp.sh"
-                   socat TCP-LISTEN:6443,fork,reuseaddr     SYSTEM:"~/forward-k8s-cp.sh"
+
 # Keep restarting on failure
 Restart=always
 RestartSec=5
@@ -205,10 +205,26 @@ echo "##############################################"
 sed "s/${K8S_CP_IP}/$(hostname -I | awk '{print $1}')/g" ~/.kube/lab.conf
 ```
 
-Now you can use this config to access the cluster from your host machine. To set your `KUBECONFIG` environment variable to use this config, run:
+Assuming that you copied the config shown into `~/.kube/lab.conf`, now you can use this config to access the cluster from your host machine. To set your `KUBECONFIG` environment variable to use this config, run:
 
 ```bash
 export KUBECONFIG=~/.kube/lab.conf
+```
+
+If you want to rename the context to something shorter, you can run:
+
+```bash
+kubectl config rename-context kubernetes-admin@kubernetes lab
+```
+
+And lastly, if you want to be able to use `kubectl` without specifying the `KUBECONFIG` environment variable, you can merge the config into your existing `~/.kube/config`:
+
+```bash
+cp ~/.kube/config ~/.kube/config.bak
+KUBECONFIG=~/.kube/config:~/.kube/lab.conf kubectl config view --flatten > ~/.kube/merged.conf
+sleep 1 # I've seen some stuff...
+mv ~/.kube/merged.conf ~/.kube/config
+rm ~/.kube/lab.conf ~/.kube/merged.conf
 ```
 
 ### Step 7: Verify the Setup
