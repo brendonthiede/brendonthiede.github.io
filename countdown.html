@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center;
+            align-items: center;
+            background-color: #282c34;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        #input-container {
+            display: flex; /* Arrange inputs and button */
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px; /* Space below inputs */
+        }
+        #input-container label,
+        #input-container input,
+        #input-container button {
+            margin: 5px;
+            font-size: 1.5rem; /* Make inputs/button readable */
+        }
+         #input-container input {
+            width: 60px; /* Fixed width for number inputs */
+            text-align: center;
+        }
+        #countdown {
+            font-size: 10vw; /* Responsive font size */
+            text-align: center;
+            display: none; /* Hide countdown initially */
+        }
+        #message {
+            font-size: 8vw;
+            display: none; /* Hidden initially */
+        }
+    </style>
+</head>
+<body>
+
+<div id="input-container">
+     <div>
+        <label for="minutes">Minutes:</label>
+        <input type="number" id="minutes" name="minutes" min="0" value="2">
+    </div>
+    <div>
+        <label for="seconds">Seconds:</label>
+        <input type="number" id="seconds" name="seconds" min="0" max="59" value="30">
+    </div>
+    <button id="startButton">Start Countdown</button>
+</div>
+
+<div id="countdown"></div>
+<div id="message">Time's Up!</div>
+
+<audio id="alarmSound" src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3" preload="auto"></audio>
+
+<script>
+    const countdownElement = document.getElementById("countdown");
+    const messageElement = document.getElementById("message");
+    const alarmSound = document.getElementById("alarmSound");
+    const inputContainer = document.getElementById("input-container");
+    const startButton = document.getElementById("startButton");
+    const minutesInput = document.getElementById("minutes");
+    const secondsInput = document.getElementById("seconds");
+
+    let interval; // Declare interval variable outside
+
+    function startTimer(duration) {
+        const startTime = Date.now();
+        const endTime = startTime + duration;
+
+        // Hide inputs and show countdown
+        inputContainer.style.display = 'none';
+        countdownElement.style.display = 'block';
+        messageElement.style.display = 'none'; // Ensure message is hidden
+
+        function updateCountdown() {
+            const now = Date.now();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                clearInterval(interval);
+                countdownElement.style.display = 'none'; // Hide countdown
+                messageElement.style.display = 'block'; // Show message
+                alarmSound.play().catch(error => {
+                    console.error("Audio playback failed:", error);
+                    messageElement.innerHTML += "<br><small>(Click anywhere to try playing sound)</small>";
+                    document.body.addEventListener('click', () => alarmSound.play(), { once: true });
+                });
+                // Optionally show the input container again
+                // inputContainer.style.display = 'flex';
+                return;
+            }
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24)); // Keep for potential future use
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result
+            const displayHours = String(hours).padStart(2, '0');
+            const displayMinutes = String(minutes).padStart(2, '0');
+            const displaySeconds = String(seconds).padStart(2, '0');
+
+            if (days > 0) {
+                 countdownElement.innerHTML = days + "d " + displayHours + ":" + displayMinutes + ":" + displaySeconds;
+            } else if (hours > 0) {
+                 countdownElement.innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+            } else {
+                 countdownElement.innerHTML = displayMinutes + ":" + displaySeconds;
+            }
+        }
+
+        //updateCountdown(); // Initial call to display immediately
+        interval = setInterval(updateCountdown, 100); // Update every 1/10 second
+    }
+
+    startButton.addEventListener('click', () => {
+        // Clear any existing interval if button is clicked again (optional)
+        if (interval) {
+            clearInterval(interval);
+        }
+
+        const minutes = parseInt(minutesInput.value, 10) || 0;
+        const seconds = parseInt(secondsInput.value, 10) || 0;
+        const totalMilliseconds = (minutes * 60 + seconds) * 1000;
+
+        if (totalMilliseconds > 0) {
+            startTimer(totalMilliseconds);
+        } else {
+            // Handle case where user enters 0 or invalid input
+            alert("Please enter a valid time greater than 0 seconds.");
+        }
+    });
+
+</script>
+
+</body>
+</html>
