@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="shortcut icon" type="image/png" href="images/i-am-devops.png">
+  <title>Effective On-Call</title>
+
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/night.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <style>
+  section {
+    height: 100%;
+  }
+</style>
+<section
+  style='position: absolute;background-image: url("/presentations/images/effective-oncall.png");top: 0px;left: -400px;height: 100%;background-size: contain; background-repeat: no-repeat; background-position: 50% center;display: block;width: 200%;font-size: 125%;'>
+  <aside> 
+    
+  </aside>
+  <h3 style="text-shadow: 4px 2px 2px darkgrey; color: rgb(42, 42, 197);">Effective On-call</h3>
+  <p
+    style="text-align: right; text-shadow: 2px 2px darkgrey; color: rgb(42, 42, 197); padding-right: 400px; padding-top: 400px">
+    Brendon Thiede
+    <br>September 4th, 2025
+  </p>
+</section>
+<section>
+  <h2>Effective on-call</h2>
+  <ul>
+    <li>Alerts are meaningful</li>
+    <li>Alerts are actionable</li>
+    <li>Playbooks are concise</li>
+    <li>Playbooks are deterministic (no ambiguity)</li>
+  </ul>
+</section>
+<section>
+  <h2>Reliability</h2>
+  <img src="https://lh3.googleusercontent.com/3gX2qgys2I-9HnEIvXUA10ed3AILvg5MclnKWBquEkJKP3g5_kD6WR7Ptwp3TwAGla1DuSmHv64MdTtACNLlArFVq7BwbTrTVhigsA=s900" alt="SRE Service Hierarchy of Needs" width="50%" style="mix-blend-mode: multiply;">
+  <small>https://sre.google/sre-book/part-III-practices/</small>
+</section>
+<section>
+  <h2>What are alerts?</h2>
+  <p>Alerts are notifications that something requires attention.</p>
+  <ul>
+    <li>They can be informational, warning, or critical.</li>
+    <li>They should be meaningful.</li>
+    <li>They should be actionable.</li>
+    <li>They should be prioritized.</li>
+  </ul>
+</section>
+<section>
+  <h2>How is this different than monitoring?</h2>
+  <p>Monitoring is the process of collecting, analyzing, and using information to track the performance of a system. Alerts are a subset of monitoring, focused on notifying the right people when something goes wrong.</p>
+</section>
+<section>
+  <h2>Meaningful alerts</h2>
+  <p>Meaningful alerts represent an actual degradation of service, data loss, or other customer or compliance impacting event.</p>
+  <p>Symptoms (high resource utilization, error rates, large queues, etc.) do not necessarily indicate a real problem.</p>
+</section>
+<section>
+  <h2>Actionable alerts</h2>
+  <p>Actionable alerts are those that can be acted upon by the <span style="text-decoration: line-through;">on-call SRE</span> alerted individual.</p>
+  <ul>
+    <li>They should have a clear owner.</li>
+    <li>They should have a clear resolution path.</li>
+    <li>They should not require escalation.</li>
+  </ul>
+  <p><b>Consider system improvements for recurring alerts.</b></p>
+</section>
+<section>
+  <h2>Playbooks</h2>
+  <p>Playbooks are step-by-step instructions for responding to alerts.</p>
+  <ul>
+    <li>They should be concise.</li>
+    <li>They should be deterministic (no ambiguity).</li>
+    <li>They should be easy to follow.</li>
+    <li>They should be tested regularly.</li>
+  </ul>
+</section>
+<section>
+  <h2>Thank you!</h2>
+  <img src="/presentations/images/effective-oncall-rest.png" alt="Sleep soundly">
+</section>
+
+    </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+
+  <script>
+    /***** Pulling custom remote control out in favor of RevealNotes *****/
+    // const controlChannel = new BroadcastChannel('controller');
+    // let remoteSlide = { indexh: -1, indexv: -1 };
+
+    let autoAdvanceTime = parseInt('0');
+    let pacing = parseInt('020');
+    let defaultTiming = false;
+    if (pacing > 0) {
+      defaultTiming = pacing;
+    } else if (autoAdvanceTime > 0) {
+      defaultTiming = autoAdvanceTime / 1000;
+    }
+
+    Reveal.initialize({
+      hash: true,
+      autoSlide: autoAdvanceTime,
+      autoSlideStoppable: false,
+      defaultTiming: defaultTiming,
+      plugins: [ RevealHighlight, RevealNotes ],
+      history: true
+    });
+
+    // Reveal.addEventListener('slidechanged', function (event) {
+    //   if (remoteSlide.indexh !== event.indexh || remoteSlide.indexv !== event.indexv) {
+    //     remoteSlide = { indexh: -1, indexv: -1 };
+    //     controlChannel.postMessage({
+    //       "indexh": event.indexh,
+    //       "indexv": event.indexv
+    //     });
+    //   }
+    // });
+    // controlChannel.onmessage = function (event) {
+    //   remoteSlide = event.data;
+    //   Reveal.slide(event.data.indexh, event.data.indexv);
+    // }
+  </script>
+</body>
+
+</html>
