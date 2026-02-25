@@ -3,7 +3,7 @@ layout: post
 title:  "Getting Started with Shipa"
 date:   2021-03-05 22:43:38
 categories: devops
-image: network.png
+image: network.jpg
 ---
 
 # https://www.shipa.io/development/deploying-applications-on-kubernetes/
