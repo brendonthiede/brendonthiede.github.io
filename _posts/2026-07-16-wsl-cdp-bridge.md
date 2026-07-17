@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Letting Claude drive Windows Chrome from WSL without the CDP timeouts"
+title:  "Letting Claude drive Windows Chrome from WSL"
 date:   2026-07-16T12:00:00.000Z
 categories: devops
 ---
