@@ -72,4 +72,18 @@ Only restart when the listener is actually missing, though, as a needless restar
 
 **Don't read sockets with `Get-NetTCPConnection`.** It was inconsistently slow for me (~18s per call), enough to blow the task's time limit and leave it terminated mid-repoint. This had me chasing my tail a few times. Plain `netstat -ano` was consistently around 100ms, so using that instead kept things from timing out.
 
+**A healthy bridge doesn't mean a healthy tab.** Long after the portproxy problem was solved, I was still getting "CDP times out", but with a twist: `curl http://<gateway>:9222/json/version` answered instantly. The bridge was fine. One tab was not.
+
+Chrome freezes backgrounded renderers to save memory. A frozen tab still lists in `/json/list` and still accepts the debugger websocket, because the browser process handles both of those. What it never does is service a renderer-side command, so a `Runtime.enable` sits there until the socket times out. From WSL that is indistinguishable from a dead bridge, and no amount of portproxy healing touches it. The obvious health check actively hides it: probing `/json/version` asks the browser process, which is healthy the entire time.
+
+The quiet fix is to nudge the page back to active before talking to it:
+
+```python
+c.call("Page.setWebLifecycleState", {"state": "active"})
+```
+
+but there's one more catch. That command is served browser-side, so it answers happily while the renderer stays frozen. Its reply proves nothing. Confirm with a throwaway renderer-side call, and fall back to `/json/activate/<targetId>` when the renderer still doesn't answer. Activating always works, but it pops the tab to the foreground on your desktop, so it's worth trying the quiet path first.
+
+One more reason this was annoying to chase: a socket timeout surfaces as a bare `TimeoutError` from deep inside the websocket read, several frames below any `except` an application would sensibly write. Catching it and re-raising as your own error type, with the target name in the message, turns a stack trace into a sentence.
+
 That's it. The scripts, setup steps, and a Superset query example are in the [repo](https://github.com/brendonthiede/wsl-cdp-bridge).
