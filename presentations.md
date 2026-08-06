@@ -51,3 +51,4 @@ Date      |Presentation                            |Audience
 2024-02-29|[Probing into Kubernetes](presentations/2024-02-29-TechTalk-ProbingIntoKubernetes.html) ([video](https://youtu.be/WQO5iFELJXE))|Filevine Lightning Talk
 2025-01-01|[TLS, PKI, DNS, and other TLA](presentations/2025-01-01-TechTalk-TLS_PKI_DNS.html)|Filevine Tech Talk
 2025-09-04|[Effective On-call](presentations/2025-09-04-TechTalk-EffectiveOnCall.html)|Filevine Tech Talk
+2026-08-05|[Traces and Spans in Scala](presentations/2026-08-05-TechTalk-ScalaSentryTracing.html)|August Health Tech Talk

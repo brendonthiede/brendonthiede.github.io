@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="shortcut icon" type="image/png" href="images/i-am-devops.png">
+  <title>Traces and Spans in Scala</title>
+
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/night.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <style>
+        section {
+          height: 100%;
+        }
+
+        .reveal pre {
+          width: 100%;
+          font-size: 0.5em;
+          box-shadow: none;
+        }
+
+        .reveal pre code {
+          max-height: 500px;
+        }
+
+        .reveal section h2 {
+          text-transform: none;
+        }
+
+        .quiet {
+          color: #9aa4b2;
+          font-size: 0.8em;
+        }
+      </style>
+      <section>
+        <h2>Traces and Spans in Scala</h2>
+        <h3>How Sentry finds a span you never told it about</h3>
+        <p style="text-align: right; padding-top: 120px;">
+          Brendon Thiede
+          <br>August 5th, 2026
+        </p>
+      </section>
+      <section>
+        <h2>The question</h2>
+        <blockquote style="width: 100%;">
+          "Did you ever find out how they are doing span recognition? My mental model of how things
+          works says span detection shouldn't work, but I know it does, so there must be something
+          else going on."
+        </blockquote>
+        <p class="quiet">He was right about both halves.</p>
+      </section>
+      <section>
+        <h2>A scope is the bag of stuff on your event</h2>
+        <ul>
+          <li>tags</li>
+          <li>user</li>
+          <li>breadcrumbs</li>
+          <li>the <strong>active span</strong></li>
+        </ul>
+        <p>Fork a scope, set tags, log an error, the error carries the tags.</p>
+      </section>
+      <section>
+        <h2>So where does the scope live?</h2>
+        <pre><code class="language-java" data-trim>
+// io.sentry.DefaultScopesStorage
+private static final ThreadLocal&lt;IScopes&gt; currentScopes = new ThreadLocal&lt;&gt;();
+        </code></pre>
+        <p>A thread-local.</p>
+      </section>
+      <section>
+        <h2>Which is fatal in Scala</h2>
+        <pre><code class="language-scala" data-trim>
+fetchPerson(id)          // thread A
+  .flatMap(loadOrders)   // thread B
+  .map(summarize)        // thread C
+  .recover { case e =&gt;   // thread D: who am I? what request is this?
+    logger.error("blew up", e)
+  }
+        </code></pre>
+        <p class="quiet">Every continuation is free to land on a different pool thread.</p>
+      </section>
+      <section>
+        <h2>Prediction: orphan errors</h2>
+        <p>No span. No transaction. An error with no idea which request it came from.</p>
+      </section>
+      <section>
+        <h2>Reality</h2>
+        <ul>
+          <li><code>GET /organizations/*/facilities/*/people/*</code></li>
+          <li><code>POST /organizations/*/facilities/*/emar/bulkUpdate</code></li>
+          <li>Errors attached to the right request</li>
+        </ul>
+        <p>Route-templated names, correct linkage, no tracing code anywhere in the app.</p>
+      </section>
+      <section>
+        <h2>The something else</h2>
+        <pre><code class="language-java" data-trim>
+// io.sentry.ScopesStorageFactory
+if (Platform.isJvm()
+    &amp;&amp; loadClass.isClassAvailable(
+         "io.sentry.opentelemetry.OtelContextScopesStorage", logger)) {
+  // reflectively instantiate it, use it as the IScopesStorage
+}
+// else: DefaultScopesStorage (the ThreadLocal)
+        </code></pre>
+        <p>That class ships <strong>inside the javaagent jar</strong>.</p>
+      </section>
+      <section>
+        <h2>Attach the agent, change the world</h2>
+        <pre><code class="language-java" data-trim>
+// OtelContextScopesStorage
+set(scopes) -&gt; Context.current().with(SENTRY_SCOPES_KEY, scopes).makeCurrent()
+get()       -&gt; Context.current().get(SENTRY_SCOPES_KEY)
+        </code></pre>
+        <ul>
+          <li>Sentry scopes now live in the OpenTelemetry <code>Context</code></li>
+          <li>Same app code, two different propagation stories</li>
+          <li>Nothing in your code tells you which one you're running</li>
+        </ul>
+      </section>
+      <section>
+        <h2>How does a span get into the scope?</h2>
+        <pre><code class="language-java" data-trim>
+// SentryContextWrapper.with(key, value)
+result = delegate.with(key, value);
+if (isOpentelemetrySpan(key)) {        // is this the OTel *span* key?
+  result = forkCurrentScope(result);   // then fork a Sentry scope too
+}
+        </code></pre>
+        <p><strong>Making a span current and forking a Sentry scope are the same operation.</strong></p>
+        <p class="quiet">You never opt in. Any instrumentation that starts a span just gave you a scope.</p>
+      </section>
+      <section>
+        <h2>Then capture closes the loop</h2>
+        <pre><code class="language-java" data-trim>
+// SentryClient.applyScope
+if (event.getContexts().getTrace() == null) {
+  final ISpan span = scope.getSpan();
+  if (span != null) {
+    event.getContexts().setTrace(span.getSpanContext());       // real span
+  } else {
+    event.getContexts().setTrace(                              // fallback
+      TransactionContext.fromPropagationContext(scope.getPropagationContext()));
+  }
+}
+        </code></pre>
+        <p class="quiet">That is the entirety of "span recognition".</p>
+      </section>
+      <section>
+        <h2>Why the thread hops don't lose it</h2>
+        <p>The agent instruments the things that move context:</p>
+        <ul>
+          <li><code>executors</code>, <code>scala-forkjoin-2.8</code></li>
+          <li><code>akkaactor</code> / <code>pekkoactor</code>, <code>akkahttp</code> / <code>pekkohttp</code></li>
+          <li><code>netty</code>, <code>reactornetty</code>, <code>rediscala</code></li>
+          <li><code>playmvc</code>, <code>playws</code></li>
+        </ul>
+        <p>Capture <code>Context.current()</code> at submit, re-attach it on the worker thread.</p>
+      </section>
+      <section>
+        <h2>Immutability is the load-bearing part</h2>
+        <p>The task doesn't hold a reference to something mutable that gets popped out from under it.
+          It holds a snapshot that still contains the scope.</p>
+        <p>So a <code>Future</code> chain started inside a scope keeps the tags, long after the scope
+          was popped on the calling thread.</p>
+      </section>
+      <section>
+        <h2>The comment that was wrong</h2>
+        <blockquote style="width: 100%;">
+          "block runs on the calling thread and must stay synchronous: the forked scope is
+          thread-local, so async work started inside it would be tagged with nothing."
+        </blockquote>
+        <ul>
+          <li>Without the agent (local, tests): exactly right</li>
+          <li>With the agent (prod): the async work <em>is</em> tagged</li>
+        </ul>
+        <p>The rule survives. The reason doesn't, and the reason is what the next person acts on.</p>
+      </section>
+      <section>
+        <h2>Your tests do not exercise your production tracing</h2>
+        <p>Unit tests almost never run with the javaagent.</p>
+        <p>Every scope assertion you write is an assertion about <code>DefaultScopesStorage</code>,
+          not about the thing that runs in prod.</p>
+      </section>
+      <section>
+        <h2>Three ways to trip</h2>
+        <ul>
+          <li><strong>The agent jar carries a whole copy of the SDK.</strong> It's appended to the
+            system class path, so it wins over your resolved dependency. Pin the versions together
+            or <code>Sentry.init</code> throws.</li>
+          <li><strong><code>Scope.activeSpan</code> is a <code>WeakReference</code>.</strong>
+            Collected wrapper means silent fallback to propagation-context linking. Still looks fine.</li>
+          <li><strong>Sample rate 1.0 finds every naming gap.</strong> Our largest bucket was
+            <code>&lt;unlabeled transaction&gt;</code> at over a million a day. Same price as the useful ones.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Confirm it in your own build</h2>
+        <ul>
+          <li>Log <code>Sentry.class.getProtectionDomain().getCodeSource().getLocation()</code> at
+            boot. Agent jar, or dependency cache?</li>
+          <li>Tag inside a forked scope, start a <code>Future</code> in the same block, log an error
+            from the continuation. Tag present means context is propagating.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Takeaways</h2>
+        <ul>
+          <li>Sentry's thread-local is not what runs in production</li>
+          <li>Span activation and scope forking are one operation</li>
+          <li>Async survival is the agent's, not your framework's</li>
+          <li>Write down the constraint, not the mechanism you guessed at</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+
+  <script>
+    let autoAdvanceTime = parseInt('0');
+    let pacing = parseInt('020');
+    let defaultTiming = false;
+    if (pacing > 0) {
+      defaultTiming = pacing;
+    } else if (autoAdvanceTime > 0) {
+      defaultTiming = autoAdvanceTime / 1000;
+    }
+
+    Reveal.initialize({
+      hash: true,
+      autoSlide: autoAdvanceTime,
+      autoSlideStoppable: false,
+      defaultTiming: defaultTiming,
+      plugins: [RevealHighlight, RevealNotes],
+      history: true
+    });
+  </script>
+</body>
+
+</html>
